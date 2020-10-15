@@ -27,7 +27,7 @@ If you have any issues/problems when using the scripts, please open an [issue](h
 
 ## What's working
 
-I have tested with all versions, and successfully built Zimbra.
+I have tested with all versions supported by these scripts, and successfully built Zimbra.
 
 ## Preparation
 
