@@ -10,15 +10,6 @@
 #
 # Required dependencies: lsb-release
 
-# Check if running as root
-if [ "$UID" == "0" ]
-then
-  echo "Running as root, all looking good."
-else
-  echo "Please run this script as root!."
-  exit 1
-fi
-
 # Get DISTRIB_ID, install lsb_release package
 # if necessary
 if [ -f "/usr/bin/lsb_release" ]
@@ -27,9 +18,9 @@ then
 else
   if [ -f "/etc/redhat-release" ]
   then
-    yum install -y redhat-lsb
+    sudo yum install -y redhat-lsb
   else
-    apt-get install -y lsb-release
+    sudo apt-get install -y lsb-release
   fi
   DISTRIB_ID=`lsb_release -i | awk '{print $3}'`
 fi
@@ -45,7 +36,7 @@ then
   # or inform user of unsupported version and exit
   if [ $DISTRIB_RELEASE == "16.04" ] || [ $DISTRIB_RELEASE == "18.04" ]
   then
-    apt-get install -y software-properties-common openjdk-8-jdk ant ant-optional ant-contrib ruby git maven build-essential debhelper
+    sudo apt-get install -y software-properties-common openjdk-8-jdk ant ant-optional ant-contrib ruby git maven build-essential debhelper
   else
     echo "You are running an unsupported Ubuntu release!"
     exit 1
@@ -59,13 +50,13 @@ then
   # or inform user of unsupported version and exit
   if [ $DISTRIB_RELEASE == "7" ]
   then
-    yum groupinstall -y 'Development Tools'
-    yum install -y java-1.8.0-openjdk ant ant-junit ruby git maven cpan wget perl-IPC-Cmd rpm-build createrepo
+    sudo yum groupinstall -y 'Development Tools'
+    sudo yum install -y java-1.8.0-openjdk ant ant-junit ruby git maven cpan wget perl-IPC-Cmd rpm-build createrepo
   elif [ $DISTRIB_RELEASE == "8" ]
   then
-    dnf group install -y "Development Tools"
-    dnf module enable -y javapackages-tools
-    dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo
+    sudo dnf group install -y "Development Tools"
+    sudo dnf module enable -y javapackages-tools
+    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo
   else
     echo "You are running an unsupported CentOS release!"
     exit 1
