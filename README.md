@@ -66,4 +66,4 @@ At the end, you will find the created Zimbra archive file under ```/home/git/zim
 
 # Disclaimer
 
-Please note I cannot be held responsible for misuse of this script or any adverse affects. The script is provided as-is, and works perfectly fine when being utilised in the correct manner intended when following the instructions correctly. If you are unsure, please contact us for assistance.
+Please note I cannot be held responsible for misuse of this script or any adverse affects on your system. The script is provided as-is, and works perfectly fine when being utilised in the correct manner intended when following the instructions correctly. If you are unsure, please contact us for assistance.
