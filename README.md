@@ -36,7 +36,7 @@ this will detect the distribution and version you are running, and run the appro
 ## Building Zimbra
 
 First edit the ```config.build``` if necessary as this will build ```9.0.0``` by default.  This will ensure you are building for the version you want.
-Next, edit ```02-build-zimbra.sh``` and change the directories if required.  By default, it will create and build under ```/home/git/zimbra``` and everything related to the build will be located here.  This ensures your system stays tidy during the build process.  The variables to change are:
+Next, edit ```02-build-zimbra.sh``` and change the directories if required.  By default, it will create and build under ```/home/git/zimbra``` and everything related to the build will be located here.  This ensures your system stays tidy during the build process.  The variables to change if you really want to build it somewhere else are:
 
 ```
 #!/bin/bash
@@ -48,7 +48,7 @@ MAINDIR=/home/git
 PROJECTDIR=zimbra
 ```
 
-these are the only two things you might want to change in this script, unless you are happy with it building in /home/git/zimbra.
+only changes these if you really, really need to, otherwise the build process might fail if the two values above are incorrectly supplied, or you put on a partition that doesn't have enough disk space to build Zimbra.
 
 Once you have done all the changes you need, build Zimbra by running:
 
