@@ -29,7 +29,7 @@ If you have any issues/problems when using the scripts, please open an issue so 
 
 ## What's working
 
-So far I have used these scripts for building CentOS 7 and Ubuntu 18.04.  Ubuntu 16.04 should work as the zm-build instructions for dependencies worked fine for 18.04.
+So far I have used these scripts for building CentOS 7 and Ubuntu 18.04.  Ubuntu 16.04 should work as the zm-build instructions for 16.04 dependencies worked fine for 18.04.
 
 ## What's not working
 
