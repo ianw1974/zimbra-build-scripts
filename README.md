@@ -53,7 +53,7 @@ only changes these if you really, really need to, otherwise the build process mi
 Once you have done all the changes you need, build Zimbra by running:
 
 ```
-02-build-zimbra.sh
+./02-build-zimbra.sh
 ```
 
 The script will automatically clone https://github.com/zimbra/zm-build so you don't need to do this.  Then the script patches ```zimbra/zm-build/instructions/bundling-scripts/zimbra-store.sh``` because of a failure for non-existant directory ```convertd```.  This may not be needed in the future if Synacor fix their build script.  The patch fixes the script to create it before building.
