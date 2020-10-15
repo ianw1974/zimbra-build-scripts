@@ -25,6 +25,20 @@ the information that you likely will want to change is ```BUILD_NO```, ```BUILD_
 
 If you have any issues/problems when using the scripts, please open an issue so that I can help in resolved.
 
+## Preparation
+
+You will need a github account, as the Zimbra build process needs to connect to github via SSH.  Therefore, you will need to generate an SSH key if you don't have one, and then upload the contents of ```id_rsa.pub``` here: https://github.com/settings/keys
+
+Please do not attempt to build Zimbra without completing this step, as it simply won't work.
+
+You can create a key by doing this:
+
+```
+ssh-keygen -t rsa -b 4096 -C "your_email@address"
+```
+
+the email address needs to be the one used for your github account.
+
 ## Installing the dependencies
 
 Install the dependencies by running:
