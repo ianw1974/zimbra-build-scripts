@@ -4,8 +4,10 @@ The following scripts are for use with Zimbra's Github repository: https://githu
 
 The scripts created here are based on the zm-build documentation, and are to help make things much easier for you.  The scripts automatically detects your distribution, installs dependencies, and builds Zimbra without you having to do anything else manually.  So far it's supports the distributions below:
 
-* CentOS 7/8 (CentOS 8 not completely finished yet - need to fix an issue here first with build process)
-* Ubuntu 16.04/18.04 (Ubuntu 16.04 not tested, but should work the same as 18.04)
+* CentOS 7/8*
+* Ubuntu 16.04/18.04
+
+```* CentOS 8 is currently a WIP (work-in-progress)```
 
 There is also a pre-configured ```config.build``` which will build ```Zimbra 9.0.0 OSE/FOSS```
 
@@ -24,6 +26,14 @@ INTERACTIVE		= 0
 the information that you likely will want to change is ```BUILD_NO```, ```BUILD_RELEASE```, ```BUILD_RELEASE_NO```.  The remaining values shouldn't need to be changed.
 
 If you have any issues/problems when using the scripts, please open an issue so that I can help in resolved.
+
+## What's working
+
+So far I have used these scripts for building CentOS 7 and Ubuntu 18.04.  Ubuntu 16.04 should work as the zm-build instructions for dependencies worked fine for 18.04.
+
+## What's not working
+
+CentOS 8 is failing on the build process and I need to figure out why.  Therefore, this isn't complete yet but should be hopefully sometime soon.
 
 ## Preparation
 
