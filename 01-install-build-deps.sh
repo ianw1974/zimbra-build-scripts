@@ -56,7 +56,7 @@ then
   then
     sudo dnf group install -y "Development Tools"
     sudo dnf module enable -y javapackages-tools
-    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo
+    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
   else
     echo "You are running an unsupported CentOS release!"
     exit 1
