@@ -27,6 +27,7 @@ fi
 
 cd $MAINDIR/$PROJECTDIR
 git clone https://github.com/zimbra/zm-build
+git checkout origin/develop
 cp config.build $MAINDIR/$PROJECTDIR/zm-build/
 
 # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist
