@@ -25,7 +25,7 @@ INTERACTIVE		= 0
 
 the information that you likely will want to change is ```BUILD_NO```, ```BUILD_RELEASE```, ```BUILD_RELEASE_NO```.  The remaining values shouldn't need to be changed.
 
-If you have any issues/problems when using the scripts, please open an issue so that I can help in resolved.
+If you have any issues/problems when using the scripts, please open an issue so that I can help resolve it.
 
 ## What's working
 
