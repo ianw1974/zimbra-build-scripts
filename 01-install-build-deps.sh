@@ -75,7 +75,3 @@ else
   echo "This script only supports CentOS 7/8 and Ubuntu 16.04/18.04"
   exit 1
 fi
-
-# Dependencies completed
-echo "Dependencies installed.  Copy config.build to zm-build directory."
-echo "Edit config.build with appropriate parameters for your build!"
