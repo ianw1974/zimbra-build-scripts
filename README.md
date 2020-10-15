@@ -2,12 +2,12 @@
 
 The following scripts are for use with Zimbra's Github repository: https://github.com/zimbra/zm-build
 
-The script basically installs all the required dependencies you need for building Zimbra for the following distributions:
+The scripts created here are based on the zm-build documentation, and are to help make things much easier for you.  The scripts automatically detects your distribution, installs dependencies, and builds Zimbra without you having to do anything else manually.  So far it's supports the distributions below:
 
-* CentOS 7/8
+* CentOS 7/8 (CentOS 8 not completely finished yet - need to fix an issue here first with build process)
 * Ubuntu 16.04/18.04
 
-and with a pre-configured ```config.build``` it will build ```Zimbra 9.0.0 OSE/FOSS```
+There is also a pre-configured ```config.build``` which will build ```Zimbra 9.0.0 OSE/FOSS```
 
 For future Zimbra 9.x releases, all that will be required is to adapt the contents of ```config.build``` with the appropriate version numbers:
 
