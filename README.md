@@ -90,6 +90,6 @@ At the end, you will find the created Zimbra archive file under ```/home/git/zim
 
 # Disclaimer
 
-Please note I cannot be held responsible for misuse of this script or any adverse affects on your system. The script is provided as-is, and works perfectly fine when being utilised in the correct manner intended when following the instructions correctly. If you are unsure, please contact us for assistance.
+Please note I cannot be held responsible for misuse of this script or any adverse affects on your system. The script is provided as-is.
 
 Zimbra is a Synacor copyright/trademark.  I am in no way associated or related with Zimbra or Synacor, I am just a long-time user of Zimbra who likes to support the community where I possibly can.
