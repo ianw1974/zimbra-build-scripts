@@ -1,0 +1,10 @@
+--- zimbra-store.sh	2020-10-15 11:06:35.604892275 +0200
++++ zimbra/zm-build/instructions/bundling-scripts/zimbra-store.sh	2020-10-13 09:26:54.328669129 +0200
+@@ -85,6 +85,7 @@
+     mkdir -p ${repoDir}/zm-build/${currentPackage}/opt/zimbra/lib/ext/zm-oauth-social
+     mkdir -p ${repoDir}/zm-build/${currentPackage}/opt/zimbra/lib/ext/zm-gql
+     mkdir -p ${repoDir}/zm-build/${currentPackage}/opt/zimbra/lib/ext-common
++    mkdir -p ${repoDir}/zm-build/${currentPackage}/opt/zimbra/lib/ext/convertd
+ 
+     if [ "${buildType}" == "NETWORK" ]
+     then
