@@ -5,7 +5,6 @@
 # Variables
 MAINDIR=/git
 PROJECTDIR=zimbra
-BUILDDIR=zm-build
 
 if [ -d "$MAINDIR" ]
 then
@@ -24,14 +23,14 @@ fi
 cd $MAINDIR/$PROJECTDIR
 git clone https://github.com/zimbra/zm-build
 git checkout origin/develop
-cp config.build $MAINDIR/$PROJECTDIR/zm-build/
+cp config.build $MAINDIR/$PROJECTDIR/zm-build
 
 # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist
 # else build will fail
 patch $MAINDIR/$PROJECTDIR/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
 
 # Change to build directory and build Zimbra
-cd $MAINDIR/$PROJECTDIR/$BUILDDIR
+cd $MAINDIR/$PROJECTDIR/zm-build
 ./build.pl
 
 # Inform where archive can be found
