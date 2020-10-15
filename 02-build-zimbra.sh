@@ -3,7 +3,7 @@
 # Script to build Zimbra
 
 # Variables
-MAINDIR=/git
+MAINDIR=/home/git
 PROJECTDIR=zimbra
 
 if [ -d "$MAINDIR" ]
