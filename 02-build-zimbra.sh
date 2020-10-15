@@ -6,10 +6,6 @@
 MAINDIR=/git
 PROJECTDIR=zimbra
 BUILDDIR=zm-build
-BUILDNO="0001"
-BUILDTS=`date +'%Y%m%d%H%M%S'`
-BUILDREL="KEPLER"
-BUILDRELNO="9.0.0"
 
 if [ -d "$MAINDIR" ]
 then
@@ -36,7 +32,7 @@ patch $MAINDIR/$PROJECTDIR/zm-build/instructions/bundling-scripts/zimbra-store.s
 
 # Change to build directory and build Zimbra
 cd $MAINDIR/$PROJECTDIR/$BUILDDIR
-./build.pl --build-no=$BUILDNO --build-ts=$BUILDTS --build-release=$BUILDREL--build-release-no=$BUILDRELNO --build-release-candidate=GA --build-type=FOSS --build-thirdparty-server=files.zimbra.com --no-interactive
+./build.pl
 
 # Inform where archive can be found
 echo -e "\nZimbra archive file can be found under $MAINDIR/$PROJECTDIR/.staging\n"
