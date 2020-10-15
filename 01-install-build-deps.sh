@@ -19,14 +19,19 @@ else
   exit 1
 fi
 
-# Get DISTRIB_ID or inform user of missing dependency
+# Get DISTRIB_ID, install lsb_release package
+# if necessary
 if [ -f "/usr/bin/lsb_release" ]
 then
   DISTRIB_ID=`lsb_release -i | awk '{print $3}'`
 else
-  echo "You need to install lsb-release or redhat-lsb package."
-  echo "Re-run script once installed."
-  exit 1
+  if [ -f "/etc/redhat-release" ]
+  then
+    yum install -y redhat-lsb
+  else
+    apt-get install -y lsb-release
+  fi
+  DISTRIB_ID=`lsb_release -i | awk '{print $3}'`
 fi
 
 # Start installing dependencies
