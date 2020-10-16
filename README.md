@@ -2,7 +2,7 @@
 
 The following scripts are for use with Zimbra's Github repository: https://github.com/zimbra/zm-build
 
-The scripts created here are based on the zm-build documentation, and are to help make things much easier for you.  The scripts automatically detects your distribution, installs dependencies, and builds Zimbra without you having to do anything else manually.  So far it's supports the distributions below:
+The scripts created here are based on the zm-build documentation, and are to help make things much easier for you.  The scripts automatically detect your distribution, installs dependencies, and builds Zimbra without you having to do anything else manually.  So far it supports the distributions below:
 
 * CentOS 7/8
 * Ubuntu 16.04/18.04
@@ -48,7 +48,7 @@ git clone https://github.com/ianw1974/zimbra-build-scripts
 cd zimbra-build-scripts
 ```
 
-so that you can then run the scripts.
+now you can run the scripts.
 
 ## Installing the dependencies
 
@@ -63,7 +63,7 @@ this will detect the distribution and version you are running, and run the appro
 ## Building Zimbra
 
 First edit the ```config.build``` if necessary as this will build ```9.0.0``` by default.  This will ensure you are building for the version you want.
-By default, ```02-build-zimbra.sh``` will create and build under ```/home/git/zimbra``` and everything related to the build will be located here.  This ensures your system stays tidy during the build process.  If you really want to build it somewhere else then edit the script and change the variables as seen below:
+By default, ```02-build-zimbra.sh``` will create and build under ```/home/git/zimbra``` and everything related to the build will be located here.  This ensures your system stays tidy during the build process (everything will be placed under /home/git/zimbra - about 59+ directories).  If you really want to build it somewhere else then edit the script and change the variables as seen below:
 
 ```
 # Variables
