@@ -85,6 +85,8 @@ After the patch has been applied, it builds Zimbra.
 
 At the end, you will find the created Zimbra archive file under ```/home/git/zimbra/.staging/UBUNTU18_64-KEPLER-900-20201013092939-FOSS-1/zm-build/zcs-9.0.0_GA_1.UBUNTU18_64.20201013092939.tgz``` if building for Ubuntu 18.04.  The directory name and archive file name will vary if building for different distributions.
 
+You can then unpack this archive file and install/upgrade Zimbra in the usual manner.
+
 # Disclaimer
 
 Please note I cannot be held responsible for misuse of this script or any adverse affects on your system. The scripts are provided as-is.
