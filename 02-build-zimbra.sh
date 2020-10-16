@@ -21,7 +21,7 @@ then
   echo "$PROJECTDIR directory exists, continuing..."
 else
   sudo mkdir $MAINDIR/$PROJECTDIR
-  sudo chown $USERID:$USERID $MAINDIR
+  sudo chown $USERID:$USERID $MAINDIR/$PROJECTDIR
 fi
 
 cp config.build $MAINDIR/$PROJECTDIR
