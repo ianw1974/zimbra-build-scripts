@@ -41,7 +41,11 @@ You can create a key by doing this:
 ssh-keygen -t rsa -b 4096 -C "your_email@address"
 ```
 
-the email address needs to be the one used for your github account.  Now clone this repository:
+the email address needs to be the one used for your github account.
+
+Make sure that there are no other versions of JRE/JDK installed on your build server as these will conflict with openjdk-8 which Zimbra uses.
+
+Now clone this repository:
 
 ```
 git clone https://github.com/ianw1974/zimbra-build-scripts
