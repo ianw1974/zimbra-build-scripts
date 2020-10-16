@@ -10,14 +10,14 @@ if [ -d "$MAINDIR" ]
 then
   echo "$MAINDIR directory exists, continuing..."
 else
-  mkdir $MAINDIR
+  sudo mkdir $MAINDIR
 fi
 
 if [ -d "$MAINDIR/$PROJECTDIR" ]
 then
   echo "$PROJECTDIR directory exists, continuing..."
 else
-  mkdir $MAINDIR/$PROJECTDIR
+  sudo mkdir $MAINDIR/$PROJECTDIR
 fi
 
 cp config.build $MAINDIR/$PROJECTDIR
