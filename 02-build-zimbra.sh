@@ -6,11 +6,14 @@
 MAINDIR=/home/git
 PROJECTDIR=zimbra
 
+USERID=`echo $USER`
+
 if [ -d "$MAINDIR" ]
 then
   echo "$MAINDIR directory exists, continuing..."
 else
   sudo mkdir $MAINDIR
+  sudo chown $USERID:$USERID $MAINDIR
 fi
 
 if [ -d "$MAINDIR/$PROJECTDIR" ]
@@ -18,6 +21,7 @@ then
   echo "$PROJECTDIR directory exists, continuing..."
 else
   sudo mkdir $MAINDIR/$PROJECTDIR
+  sudo chown $USERID:$USERID $MAINDIR
 fi
 
 cp config.build $MAINDIR/$PROJECTDIR
