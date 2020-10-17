@@ -75,7 +75,7 @@ MAINDIR=/home/git
 PROJECTDIR=zimbra
 ```
 
-only change these if you really, really need to, otherwise the build process might fail if the two values above are incorrectly supplied, or you put on a partition that doesn't have enough disk space to build Zimbra.
+only change these if you really, really need to, otherwise the build process might fail if the two values above are incorrectly supplied, or you put on a partition that doesn't have enough disk space to build Zimbra.  Please also note, if you git pull my repository in the future, the changes you made will disappear and will need to be made again before you attempt to build.  This functionality exists for the advanced user who would like a bit of customisation.
 
 Once you have done all the changes you need, build Zimbra by running:
 
