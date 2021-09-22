@@ -136,9 +136,8 @@ build_zimbra() {
 }
 
 help() {
-  echo -e "\n${CYAN}Zimbra Build - Helper script!"
+  echo -e "\n${CYAN}Zimbra Build Helper script!\n"
   echo -e "${YELLOW}Valid parameters are as follows:${NORMAL}\n"
-  echo -e ""
   echo -e "  ${GREEN}--install-deps${NORMAL}\t - Installs required dependencies"
   echo -e "  ${GREEN}--build-zimbra${NORMAL}\t - Builds Zimbra"
   echo -e "  ${GREEN}--help${NORMAL}\t\t - Shows this help screen\n"
