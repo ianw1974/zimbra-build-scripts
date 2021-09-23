@@ -71,6 +71,8 @@ install_dependencies() {
     elif [ ${DISTRIB_RELEASE} == "8" ]
     then
       sudo dnf group install -y "Development Tools"
+      sudo dnf install -y javapackages-tools
+      sudo dnf config-manager --set-enabled powertools
       sudo dnf module enable -y javapackages-tools
       sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
     else
