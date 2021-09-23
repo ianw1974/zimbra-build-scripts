@@ -5,12 +5,13 @@
 # Prepared By: Ian Walker      #
 #                              #
 # Supports:                    #
-#     Ubuntu 18.04             #
-#     Ubuntu 16.04             #
-#     CentOS 8                 #
 #     CentOS 7                 #
-#     RHEL Enterprise Server 8 #
+#     CentOS 8                 #
+#     Oracle Linux 8           #
 #     RHEL Enterprise Server 7 #
+#     RHEL Enterprise Server 8 #
+#     Ubuntu 16.04             #
+#     Ubuntu 18.04             #
 ################################
 
 #############
@@ -57,31 +58,38 @@ install_dependencies() {
       echo "You are running an unsupported Ubuntu release!"
       exit 1
     fi
-  elif [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ]
+  elif [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ] || [ ${DISTRIB_ID} == "OracleServer" ]
   then
     # Get release information
     DISTRIB_RELEASE=`lsb_release -r | awk '{print $2}' | cut -f1 -d "."`
 
     # Check if running supported version and install dependencies
     # or inform user of unsupported version and exit
-    if [ ${DISTRIB_RELEASE} == "7" ]
+    if [ ${DISTRIB_RELEASE} == "7" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ]
     then
       sudo yum groupinstall -y 'Development Tools'
       sudo yum install -y java-1.8.0-openjdk ant ant-junit ruby git maven cpan wget perl-IPC-Cmd rpm-build createrepo
-    elif [ ${DISTRIB_RELEASE} == "8" ]
+    elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ]
     then
       sudo dnf group install -y "Development Tools"
       sudo dnf install -y javapackages-tools
       sudo dnf config-manager --set-enabled powertools
       sudo dnf module enable -y javapackages-tools
       sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
+    elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "OracleServer"]
+    then
+      sudo dnf group install -y "Development Tools"
+      sudo dnf install -y javapackages-tools
+      dnf config-manager --set-enabled ol8_codeready_builder
+      sudo dnf module enable -y javapackages-tools
+      sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
     else
-      echo "You are running an unsupported CentOS/RHEL release!"
+      echo "You are running an unsupported CentOS/Oracle/RHEL release!"
       exit 1
     fi
   else
     echo "Unsupported distribution!"
-    echo "This script only supports CentOS 7/8, RHEL 7/8 and Ubuntu 16.04/18.04"
+    echo "This script only supports CentOS 7/8, Oracle 8, RHEL 7/8 and Ubuntu 16.04/18.04"
     exit 1
   fi
 }
