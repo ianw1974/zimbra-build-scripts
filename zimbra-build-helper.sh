@@ -50,8 +50,7 @@ install_dependencies() {
     # Get release information
     DISTRIB_RELEASE=`lsb_release -r | awk '{print $2}'`
 
-    # Check if running supported version and install dependencies
-    # or inform user of unsupported version and exit
+    # Check if running supported version and install dependencies or inform user of unsupported version and exit
     if [ ${DISTRIB_RELEASE} == "16.04" ] || [ ${DISTRIB_RELEASE} == "18.04" ]
     then
       sudo apt-get install -y software-properties-common openjdk-8-jdk ant ant-optional ant-contrib ruby git maven build-essential debhelper
@@ -64,8 +63,7 @@ install_dependencies() {
     # Get release information
     DISTRIB_RELEASE=`lsb_release -r | awk '{print $2}' | cut -f1 -d "."`
 
-    # Check if running supported version and install dependencies
-    # or inform user of unsupported version and exit
+    # Check if running supported version and install dependencies or inform user of unsupported version and exit
     if [ ${DISTRIB_RELEASE} == "7" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ]
     then
       sudo yum groupinstall -y 'Development Tools'
@@ -81,16 +79,16 @@ install_dependencies() {
     then
       sudo dnf group install -y "Development Tools"
       sudo dnf install -y javapackages-tools
-      dnf config-manager --set-enabled ol8_codeready_builder
+      sudo dnf config-manager --set-enabled ol8_codeready_builder
       sudo dnf module enable -y javapackages-tools
       sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
     else
-      echo "You are running an unsupported CentOS/Oracle/RHEL release!"
+      echo "You are running an unsupported CentOS/Oracle/RHEL/Rocky release!"
       exit 1
     fi
   else
     echo "Unsupported distribution!"
-    echo "This script only supports CentOS 7/8, Oracle 8, RHEL 7/8 and Ubuntu 16.04/18.04"
+    echo "This script only supports CentOS 7/8, Oracle 8, RHEL 7/8, Rocky Linux 8 and Ubuntu 16.04/18.04"
     exit 1
   fi
 }
@@ -131,8 +129,7 @@ build_zimbra() {
   git clone -b develop https://github.com/zimbra/zm-build
   cp config.build ${MAINDIR}/${PROJECTDIR}/zm-build
 
-  # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist
-  # else build will fail
+  # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist else build will fail
   patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
 
   # Patch get_plat_tag.sh to enable support for Rocky Linux
