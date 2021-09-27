@@ -156,7 +156,7 @@ help() {
   echo -e "${CYAN}Build summary step-by-step:\n${NORMAL}"
   echo -e "  ${YELLOW}1. Generate ssh key:${NORMAL} ssh-keygen -t rsa -b 4096 -C \"your_email@address\""
   echo -e "  ${YELLOW}2. Upload this to your github profile:${NORMAL} https://github.com/settings/keys"
-  echo -e "  ${YELLOW}3. Only OpenJDK 8 can be installed on the build server, remove other versions"
+  echo -e "  ${YELLOW}3. Only OpenJDK 8 can be installed on the build server, remove other versions${NORMAL}"
   echo -e "  ${YELLOW}4. Run:${NORMAL}./zimbra-build-helper.sh --install-deps"
   echo -e "  ${YELLOW}5. Run:${NORMAL}./zimbra-build-helper.sh --build-zimbra\n"
 }

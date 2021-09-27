@@ -63,6 +63,31 @@ now you can run the script.
 
 A help parameter ```--help``` has been added to the script so you can reference it to find out what steps need to be done to build Zimbra.  These saves you from having to reference this readme file.  It summarises the steps required, to make sure that you have uploaded an SSH key to your github profile, that any other version of Java has been removed from your system prior to installing dependencies and building Zimbra.
 
+```
+./zimbra-build-helper.sh --help
+
+Zimbra Build Helper script!
+
+Valid parameters are as follows:
+
+  --install-deps   - Installs required dependencies
+  --build-zimbra   - Builds Zimbra
+  --help           - Shows this help screen
+
+At the beginning of the script these variables can be changed if you want:
+
+MAINDIR=/home/git
+PROJECTDIR=zimbra
+
+Build summary step-by-step:
+
+  1. Generate ssh key: ssh-keygen -t rsa -b 4096 -C "your_email@address"
+  2. Upload this to your github profile: https://github.com/settings/keys
+  3. Only OpenJDK 8 can be installed on the build server, remove other versions
+  4. Run:./zimbra-build-helper.sh --install-deps
+  5. Run:./zimbra-build-helper.sh --build-zimbra
+```
+
 Also, if you run the script without passing a parameter, it will display output asking you to use the ```--help``` parameter for more info to help you.
 
 ## Installing the dependencies
