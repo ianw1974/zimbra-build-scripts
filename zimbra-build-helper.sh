@@ -58,7 +58,7 @@ install_dependencies() {
       echo "You are running an unsupported Ubuntu release!"
       exit 1
     fi
-  elif [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ] || [ ${DISTRIB_ID} == "OracleServer" ]
+  elif [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "OracleServer" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ] || [ ${DISTRIB_ID} == "Rocky" ]
   then
     # Get release information
     DISTRIB_RELEASE=`lsb_release -r | awk '{print $2}' | cut -f1 -d "."`
@@ -69,7 +69,7 @@ install_dependencies() {
     then
       sudo yum groupinstall -y 'Development Tools'
       sudo yum install -y java-1.8.0-openjdk ant ant-junit ruby git maven cpan wget perl-IPC-Cmd rpm-build createrepo
-    elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ]
+    elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ] || [ ${DISTRIB_ID} == "Rocky" ]
     then
       sudo dnf group install -y "Development Tools"
       sudo dnf install -y javapackages-tools
@@ -125,16 +125,17 @@ build_zimbra() {
   # Start preparing for build
   cp config.build ${MAINDIR}/${PROJECTDIR}
   cp zimbra-store.patch ${MAINDIR}/${PROJECTDIR}
+  cp zimbra-rocky.patch ${MAINDIR}/${PROJECTDIR}
   cd ${MAINDIR}/${PROJECTDIR}
-  git clone https://github.com/zimbra/zm-build
-  cd zm-build
-  git checkout origin/develop
-  cd ..
+  git clone -b develop https://github.com/zimbra/zm-build
   cp config.build ${MAINDIR}/${PROJECTDIR}/zm-build
 
   # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist
   # else build will fail
   patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
+
+  # Patch get_plat_tag.sh to enable support for Rocky Linux
+  patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-rocky.patch
 
   # Change to build directory and build Zimbra
   cd ${MAINDIR}/${PROJECTDIR}/zm-build
