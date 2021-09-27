@@ -15,7 +15,7 @@ The script created here are based on the zm-build documentation, and are to help
 
 There is also a pre-configured ```config.build``` which will build ```Zimbra 9.0.0 OSE/FOSS```
 
-For future Zimbra 9.x releases, all that will be required is to adapt the contents of ```config.build``` with the appropriate version numbers (or download a particular release [here](https://github.com/ianw1974/zimbra-build-scripts/releases):
+For future Zimbra 9.x releases, all that will be required is to adapt the contents of ```config.build``` with the appropriate version numbers - or download a particular release [here](https://github.com/ianw1974/zimbra-build-scripts/releases):
 
 ```
 BUILD_NO                = 0001
