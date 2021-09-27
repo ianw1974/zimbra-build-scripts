@@ -1,0 +1,27 @@
+--- zm-build/rpmconf/Build/get_plat_tag.sh	2021-09-27 16:32:02.920423964 +0200
++++ get_plat_tag.sh	2021-09-27 16:31:33.483822079 +0200
+@@ -57,6 +57,12 @@
+     exit 0
+   fi
+
++  grep "Rocky Linux release 8" /etc/redhat-release > /dev/null 2>&1
++  if [ $? = 0 ]; then
++    echo "RHEL8${i}"
++    exit 0
++  fi
++
+   grep "Scientific Linux release 8" /etc/redhat-release > /dev/null 2>&1
+   if [ $? = 0 ]; then
+     echo "RHEL8${i}"
+@@ -94,6 +100,11 @@
+     echo "CentOSUNKNOWN${i}"
+     exit 0
+   fi
++  grep "Rocky Linux release" /etc/redhat-release > /dev/null 2>&1
++  if [ $? = 0 ]; then
++    echo "RockyUNKNOWN${i}"
++    exit 0
++  fi
+   grep "Fedora Core release" /etc/redhat-release > /dev/null 2>&1
+   if [ $? = 0 ]; then
+     echo "FCUNKNOWN${i}"
