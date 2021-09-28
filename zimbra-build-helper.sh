@@ -71,14 +71,14 @@ install_dependencies() {
     elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ] || [ ${DISTRIB_ID} == "Rocky" ]
     then
       sudo dnf group install -y "Development Tools"
-      sudo dnf install -y javapackages-tools
       sudo dnf config-manager --set-enabled powertools
       sudo dnf module enable -y javapackages-tools
       sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
+      # Fix dependency update issue with package/module conflicts by blocking package
+      echo "exclude=ant ant-lib" >> /etc/dnf/dnf.conf
     elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "OracleServer"]
     then
       sudo dnf group install -y "Development Tools"
-      sudo dnf install -y javapackages-tools
       sudo dnf config-manager --set-enabled ol8_codeready_builder
       sudo dnf module enable -y javapackages-tools
       sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
