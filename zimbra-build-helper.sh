@@ -3,6 +3,7 @@
 ################################
 # Zimbra Build Helper Script   #
 # Prepared By: Ian Walker      #
+# Version: 1.0.2a              #
 #                              #
 # Supports:                    #
 #     CentOS 7                 #
@@ -76,7 +77,7 @@ install_dependencies() {
       sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
       # Fix dependency update issue with package/module conflicts by blocking package
       echo "exclude=ant ant-lib" >> /etc/dnf/dnf.conf
-    elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "OracleServer"]
+    elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "OracleServer" ]
     then
       sudo dnf group install -y "Development Tools"
       sudo dnf config-manager --set-enabled ol8_codeready_builder
