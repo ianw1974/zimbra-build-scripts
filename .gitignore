@@ -1,0 +1,2 @@
+# Ignore config.build for changes made for version build, etc
+config.build
