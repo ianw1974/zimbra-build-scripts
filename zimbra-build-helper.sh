@@ -140,9 +140,14 @@ build_zimbra() {
   cd ${MAINDIR}/${PROJECTDIR}/zm-build
   ./build.pl
 
-  # Inform where archive can be found
-  echo -e "\nZimbra archive file can be found under ${MAINDIR}/${PROJECTDIR}/BUILDS"
-  echo -e "You can now unpack this and install/upgrade Zimbra\n"
+  # Inform where archive can be found or error message if problem with build
+  if [ $? == 0 ]
+  then
+    echo -e "\nZimbra archive file can be found under ${MAINDIR}/${PROJECTDIR}/BUILDS"
+    echo -e "You can now unpack this and install/upgrade Zimbra\n"
+  else
+    echo -e "${YELLOW}\nThere was a problem with the build process, check output above!\n${NORMAL}"
+  fi
 }
 
 help() {
