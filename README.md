@@ -1,6 +1,6 @@
 # Zimbra Build Script
 
-If you don't want to build yourself, and just want to download Zimbra, the builds I have created can be found here: https://github.com/ianw1974/zimbra-builds
+If you don't want to build yourself, and just want to download Zimbra, the builds I have created can be found [here](https://gitlab.com/iwalker/zimbra-builds)
 
 # Instructions
 
