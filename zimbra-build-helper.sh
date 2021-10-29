@@ -1,20 +1,17 @@
 #!/bin/bash
 #
-################################
-# Zimbra Build Helper Script   #
-# Prepared By: Ian Walker      #
-# Version: 1.0.3              #
-#                              #
-# Supports:                    #
-#     CentOS 7                 #
-#     CentOS 8                 #
-#     Oracle Linux 8           #
-#     RHEL Enterprise Server 7 #
-#     RHEL Enterprise Server 8 #
-#     Rocky Linux 8            #
-#     Ubuntu 16.04             #
-#     Ubuntu 18.04             #
-################################
+##################################
+# Zimbra Build Helper Script     #
+# Prepared By: Ian Walker        #
+# Version: 1.0.3                 #
+#                                #
+# Supports:                      #
+#     CentOS 7/8                 #
+#     Oracle Linux 8             #
+#     RHEL Enterprise Server 7/8 #
+#     Rocky Linux 8              #
+#     Ubuntu 16.04/18.04         #
+##################################
 
 #############
 # Variables #
@@ -54,7 +51,7 @@ install_dependencies() {
     # Check if running supported version and install dependencies or inform user of unsupported version and exit
     if [ ${DISTRIB_RELEASE} == "16.04" ] || [ ${DISTRIB_RELEASE} == "18.04" ]
     then
-      sudo apt-get install -y software-properties-common openjdk-8-jdk ant ant-optional ant-contrib ruby git maven build-essential debhelper
+      deb_pkg_install
     else
       echo "You are running an unsupported Ubuntu release!"
       exit 1
@@ -67,15 +64,10 @@ install_dependencies() {
     # Check if running supported version and install dependencies or inform user of unsupported version and exit
     if [ ${DISTRIB_RELEASE} == "7" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ]
     then
-      sudo yum groupinstall -y 'Development Tools'
-      sudo yum install -y java-1.8.0-openjdk ant ant-junit ruby git maven cpan wget perl-IPC-Cmd rpm-build createrepo
+      el7_pkg_install
     elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "Rocky" ]
     then
-      sudo dnf group install -y "Development Tools"
-      sudo dnf config-manager --set-enabled powertools
-      sudo dnf module enable -y javapackages-tools
-      sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
-      # Fix dependency update issue with package/module conflicts by blocking package
+      el8_pkg_install
       is_ant_excluded
     # Check if running RHEL8
     elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "RedHatEnterprise" ]
@@ -84,20 +76,13 @@ install_dependencies() {
       # and create Rocky-PowerTools.repo
       sudo curl -s http://dl.rockylinux.org/pub/rocky/RPM-GPG-KEY-rockyofficial -o /etc/pki/rpm-gpg/RPM-GPG-KEY-rockyofficial
       sudo echo "${ROCKY_POWERTOOLS}" > /etc/yum.repos.d/Rocky-PowerTools.repo
-      sudo dnf group install -y "Development Tools"
-      sudo dnf config-manager --set-enabled powertools
       sudo dnf update -y
-      sudo dnf module enable -y javapackages-tools
-      sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
-      # Fix dependency update issue with package/module conflicts by blocking package
+      el8_pkg_install
       is_ant_excluded
     # Check if running Oracle Linux
     elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "OracleServer" ]
     then
-      sudo dnf group install -y "Development Tools"
-      sudo dnf config-manager --set-enabled ol8_codeready_builder
-      sudo dnf module enable -y javapackages-tools
-      sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
+      oel8_pkg_install
     else
       echo "You are running an unsupported CentOS/Oracle/RHEL/Rocky release!"
       exit 1
@@ -109,6 +94,34 @@ install_dependencies() {
   fi
 }
 
+# Installs dependencies for Ubuntu
+deb_pkg_install() {
+  sudo apt-get install -y software-properties-common openjdk-8-jdk ant ant-optional ant-contrib ruby git maven build-essential debhelper
+}
+
+# Installs dependencies for EL7
+el7_pkg_install() {
+  sudo yum groupinstall -y 'Development Tools'
+  sudo yum install -y java-1.8.0-openjdk ant ant-junit ruby git maven cpan wget perl-IPC-Cmd rpm-build createrepo
+}
+
+# Installs dependencies for EL8
+el8_pkg_install() {
+  sudo dnf group install -y "Development Tools"
+  sudo dnf config-manager --set-enabled powertools
+  sudo dnf module enable -y javapackages-tools
+  sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
+}
+
+#Installs dependencies for OEL8
+oel8_pkg_install() {
+  sudo dnf group install -y "Development Tools"
+  sudo dnf config-manager --set-enabled ol8_codeready_builder
+  sudo dnf module enable -y javapackages-tools
+  sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
+}
+
+# Fixes ant ant-lib dependency problem between packages and modules
 is_ant_excluded() {
   IS_ANT_EXCLUDE=`cat /etc/dnf/dnf.conf | grep -c "exclude=ant ant-lib"`
   if [ ${IS_ANT_EXCLUDE} = 0 ]
