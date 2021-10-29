@@ -3,7 +3,7 @@
 ################################
 # Zimbra Build Helper Script   #
 # Prepared By: Ian Walker      #
-# Version: 1.0.2a              #
+# Version: 1.0.3              #
 #                              #
 # Supports:                    #
 #     CentOS 7                 #
@@ -59,7 +59,7 @@ install_dependencies() {
       echo "You are running an unsupported Ubuntu release!"
       exit 1
     fi
-  elif [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "OracleServer" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ] || [ ${DISTRIB_ID} == "Rocky" ]
+  elif [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "OracleServer" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ] || [ ${DISTRIB_ID} == "RedHatEnterprise" ] || [ ${DISTRIB_ID} == "Rocky" ]
   then
     # Get release information
     DISTRIB_RELEASE=`lsb_release -r | awk '{print $2}' | cut -f1 -d "."`
@@ -69,14 +69,29 @@ install_dependencies() {
     then
       sudo yum groupinstall -y 'Development Tools'
       sudo yum install -y java-1.8.0-openjdk ant ant-junit ruby git maven cpan wget perl-IPC-Cmd rpm-build createrepo
-    elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ] || [ ${DISTRIB_ID} == "Rocky" ]
+    elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "Rocky" ]
     then
       sudo dnf group install -y "Development Tools"
       sudo dnf config-manager --set-enabled powertools
       sudo dnf module enable -y javapackages-tools
       sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
       # Fix dependency update issue with package/module conflicts by blocking package
-      echo "exclude=ant ant-lib" >> /etc/dnf/dnf.conf
+      is_ant_excluded
+    # Check if running RHEL8
+    elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "RedHatEnterprise" ]
+    then
+      # Import Rocky Powertools - Rocky follows RHEL8 development - needed for javapackages-tools module + ant-junit
+      # and create Rocky-PowerTools.repo
+      sudo curl -s http://dl.rockylinux.org/pub/rocky/RPM-GPG-KEY-rockyofficial -o /etc/pki/rpm-gpg/RPM-GPG-KEY-rockyofficial
+      sudo echo "${ROCKY_POWERTOOLS}" > /etc/yum.repos.d/Rocky-PowerTools.repo
+      sudo dnf group install -y "Development Tools"
+      sudo dnf config-manager --set-enabled powertools
+      sudo dnf update -y
+      sudo dnf module enable -y javapackages-tools
+      sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
+      # Fix dependency update issue with package/module conflicts by blocking package
+      is_ant_excluded
+    # Check if running Oracle Linux
     elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "OracleServer" ]
     then
       sudo dnf group install -y "Development Tools"
@@ -91,6 +106,14 @@ install_dependencies() {
     echo "Unsupported distribution!"
     echo "This script only supports CentOS 7/8, Oracle 8, RHEL 7/8, Rocky Linux 8 and Ubuntu 16.04/18.04"
     exit 1
+  fi
+}
+
+is_ant_excluded() {
+  IS_ANT_EXCLUDE=`cat /etc/dnf/dnf.conf | grep -c "exclude=ant ant-lib"`
+  if [ ${IS_ANT_EXCLUDE} = 0 ]
+  then
+    sudo echo "exclude=ant ant-lib" >> /etc/dnf/dnf.conf
   fi
 }
 
@@ -150,6 +173,19 @@ build_zimbra() {
   fi
 }
 
+# Config files
+ROCKY_POWERTOOLS=$(cat << EOF
+[powertools]
+name=Rocky Linux $releasever - PowerTools
+mirrorlist=https://mirrors.rockylinux.org/mirrorlist?arch=\$basearch&repo=PowerTools-\$releasever
+#baseurl=http://dl.rockylinux.org/\$contentdir/\$releasever/PowerTools/\$basearch/os/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rockyofficial
+EOF
+)
+
+# Help for using the script
 help() {
   echo -e "\n${CYAN}Zimbra Build Helper script!\n"
   echo -e "${YELLOW}Valid parameters are as follows:${NORMAL}\n"
