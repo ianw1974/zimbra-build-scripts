@@ -9,6 +9,7 @@ The following script is for use with Zimbra's Github repository: https://github.
 The script created here are based on the zm-build documentation, and are to help make things much easier for you.  The script automatically detect your distribution, installs dependencies, and builds Zimbra without you having to do anything else manually.  So far it supports the distributions below:
 
 * CentOS 7/8
+* Oracle Enterprise Linux 8
 * Red Hat Enterprise Linux 7/8
 * Rocky Linux 8
 * Ubuntu 16.04/18.04
