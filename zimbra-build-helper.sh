@@ -96,7 +96,7 @@ install_dependencies() {
 
 # Installs dependencies for Ubuntu
 deb_pkg_install() {
-  sudo apt-get install -y software-properties-common openjdk-8-jdk ant ant-optional ant-contrib ruby git maven build-essential debhelper
+  sudo apt-get install -y software-properties-common openjdk-8-jdk ant ant-optional ant-contrib ruby git maven build-essential rsync wget debhelper
 }
 
 # Installs dependencies for EL7
