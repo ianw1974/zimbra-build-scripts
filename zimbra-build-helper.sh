@@ -161,7 +161,7 @@ build_zimbra() {
   # Start preparing for build
   cp config.build ${MAINDIR}/${PROJECTDIR}
   cp zimbra-store.patch ${MAINDIR}/${PROJECTDIR}
-  cp zimbra-rocky.patch ${MAINDIR}/${PROJECTDIR}
+  #cp zimbra-rocky.patch ${MAINDIR}/${PROJECTDIR}
   cd ${MAINDIR}/${PROJECTDIR}
   git clone -b develop https://github.com/zimbra/zm-build
   cp config.build ${MAINDIR}/${PROJECTDIR}/zm-build
@@ -170,7 +170,7 @@ build_zimbra() {
   patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
 
   # Patch get_plat_tag.sh to enable support for Rocky Linux
-  patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-rocky.patch
+  #patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-rocky.patch
 
   # Change to build directory and build Zimbra
   cd ${MAINDIR}/${PROJECTDIR}/zm-build
