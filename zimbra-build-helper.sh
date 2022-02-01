@@ -3,9 +3,10 @@
 ##################################
 # Zimbra Build Helper Script     #
 # Prepared By: Ian Walker        #
-# Version: 1.0.4                 #
+# Version: 1.0.5                 #
 #                                #
 # Supports:                      #
+#     AlmaLinux 8                #
 #     CentOS 7/8                 #
 #     Oracle Linux 8             #
 #     RHEL Enterprise Server 7/8 #
@@ -22,6 +23,9 @@ PROJECTDIR=zimbra
 #########################################
 # DON"T EDIT ANYTHING BELOW THESE LINES #
 #########################################
+
+# Supported distros variable
+DISTROS="AlmaLinux 8, CentOS 7/8, Oracle Linux 8, RHEL 7/8, Rocky Linux 8, Ubuntu 16.04/18.04/20.04"
 
 #############
 # Functions #
@@ -56,7 +60,7 @@ install_dependencies() {
       echo "You are running an unsupported Ubuntu release!"
       exit 1
     fi
-  elif [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "OracleServer" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ] || [ ${DISTRIB_ID} == "RedHatEnterprise" ] || [ ${DISTRIB_ID} == "Rocky" ]
+  elif [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "OracleServer" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ] || [ ${DISTRIB_ID} == "RedHatEnterprise" ] || [ ${DISTRIB_ID} == "Rocky" ] || [ ${DISTRIB_ID} == "AlmaLinux" ]
   then
     # Get release information
     DISTRIB_RELEASE=`lsb_release -r | awk '{print $2}' | cut -f1 -d "."`
@@ -65,7 +69,7 @@ install_dependencies() {
     if [ ${DISTRIB_RELEASE} == "7" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ]
     then
       el7_pkg_install
-    elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "Rocky" ]
+    elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "Rocky" ] || [ ${DISTRIB_ID} == "AlmaLinux" ]
     then
       el8_pkg_install
       is_ant_excluded
@@ -73,7 +77,7 @@ install_dependencies() {
     elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "RedHatEnterprise" ]
     then
       # Import Rocky Powertools - Rocky follows RHEL8 development - needed for javapackages-tools module + ant-junit
-      # and create Rocky-PowerTools.repo
+      # and create Rocky-PowerTools.repo of which RHEL8 doesn't have
       sudo curl -s http://dl.rockylinux.org/pub/rocky/RPM-GPG-KEY-rockyofficial -o /etc/pki/rpm-gpg/RPM-GPG-KEY-rockyofficial
       sudo echo "${ROCKY_POWERTOOLS}" > /etc/yum.repos.d/Rocky-PowerTools.repo
       sudo dnf update -y
@@ -84,12 +88,12 @@ install_dependencies() {
     then
       oel8_pkg_install
     else
-      echo "You are running an unsupported CentOS/Oracle/RHEL/Rocky release!"
+      echo "You are running an unsupported AlmaLinux/CentOS/Oracle/RHEL/Rocky release!"
       exit 1
     fi
   else
     echo "Unsupported distribution!"
-    echo "This script only supports CentOS 7/8, Oracle 8, RHEL 7/8, Rocky Linux 8 and Ubuntu 16.04/18.04"
+    echo "This script only supports: ${DISTROS}"
     exit 1
   fi
 }
@@ -162,6 +166,7 @@ build_zimbra() {
   cp config.build ${MAINDIR}/${PROJECTDIR}
   cp zimbra-store.patch ${MAINDIR}/${PROJECTDIR}
   #cp zimbra-rocky.patch ${MAINDIR}/${PROJECTDIR}
+  cp zimbra-alma.patch ${MAINDIR}/${PROJECTDIR}
   cd ${MAINDIR}/${PROJECTDIR}
   git clone -b develop https://github.com/zimbra/zm-build
   cp config.build ${MAINDIR}/${PROJECTDIR}/zm-build
@@ -169,8 +174,8 @@ build_zimbra() {
   # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist else build will fail
   patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
 
-  # Patch get_plat_tag.sh to enable support for Rocky Linux
-  #patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-rocky.patch
+  # Patch get_plat_tag.sh to enable support for Alma Linux
+  patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
 
   # Change to build directory and build Zimbra
   cd ${MAINDIR}/${PROJECTDIR}/zm-build
