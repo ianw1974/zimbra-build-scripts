@@ -113,9 +113,18 @@ By default, it will create and build under ```/home/git/zimbra``` and everything
 # Variables
 MAINDIR=/home/git
 PROJECTDIR=zimbra
+ZM_BRANCH_TAG=develop
 ```
 
 only change these if you really, really need to, otherwise the build process might fail if the two values above are incorrectly supplied, or you put on a partition that doesn't have enough disk space to build Zimbra.  Zimbra needs approximately ```5GB``` of available space to build successfully.
+
+The ```develop``` branch should build the latest patch version based on the version in the ```config.build``` file.  In the script the ```ZM_BRANCH_TAG``` value can be changed to a specific branch/tag if you require that.  For example it could be set to the tag 9.0.0.p23:
+
+```
+ZM_BRANCH_TAG=9.0.0.p23
+```
+
+To obtain branch/tag information, visit: https://github.com/Zimbra/zm-build/ and make sure it is correctly applied to the build script for it to successfully clone that particular branch/tag.  If it's incorrectly written, the clone and build process will fail.  Therefore, only change this only if you really need to.
 
 Please note, if you pull my repository in the future, or when downloading a new release, these paths will be as above.  So if you use a custom location to build other than what I have above, you will need to change this each time you pull/download.
 
