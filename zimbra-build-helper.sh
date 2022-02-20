@@ -3,7 +3,7 @@
 ##################################
 # Zimbra Build Helper Script     #
 # Prepared By: Ian Walker        #
-# Version: 1.0.5                 #
+# Version: 1.0.6                 #
 #                                #
 # Supports:                      #
 #     AlmaLinux 8                #
@@ -19,6 +19,7 @@
 #############
 MAINDIR=/home/git
 PROJECTDIR=zimbra
+ZM_BRANCH_TAG=develop
 
 #########################################
 # DON"T EDIT ANYTHING BELOW THESE LINES #
@@ -168,7 +169,7 @@ build_zimbra() {
   #cp zimbra-rocky.patch ${MAINDIR}/${PROJECTDIR}
   cp zimbra-alma.patch ${MAINDIR}/${PROJECTDIR}
   cd ${MAINDIR}/${PROJECTDIR}
-  git clone -b develop https://github.com/zimbra/zm-build
+  git clone -b ${ZM_BRANCH_TAG} https://github.com/zimbra/zm-build
   cp config.build ${MAINDIR}/${PROJECTDIR}/zm-build
 
   # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist else build will fail
