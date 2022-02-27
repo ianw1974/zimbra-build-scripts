@@ -1,0 +1,10 @@
+--- rpmconf/Install/Util/utilfunc.sh	2022-02-27 17:50:53.653606979 +0100
++++ utilfunc.sh	2022-02-27 17:50:12.830431993 +0100
+@@ -2162,6 +2162,7 @@
+ cat > /etc/apt/sources.list.d/zimbra.list << EOF
+ deb     [arch=amd64] https://$PACKAGE_SERVER/apt/87 $repo zimbra
+ deb     [arch=amd64] https://$PACKAGE_SERVER/apt/90 $repo zimbra
++deb     [arch=amd64] https://$PACKAGE_SERVER/apt/8815 $repo zimbra
+ deb-src [arch=amd64] https://$PACKAGE_SERVER/apt/87 $repo zimbra
+ EOF
+ if [ x"$ZMTYPE_INSTALLABLE" = "xNETWORK" ]; then

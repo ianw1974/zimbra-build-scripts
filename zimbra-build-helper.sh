@@ -178,6 +178,9 @@ build_zimbra() {
   # Patch get_plat_tag.sh to enable support for Alma Linux
   patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
 
+  # Patch utilfunc.sh to add required APT repository for Ubuntu 20.04
+  patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Install/Util/utilfunc.sh zimbra-repo.patch
+
   # Change to build directory and build Zimbra
   cd ${MAINDIR}/${PROJECTDIR}/zm-build
   ./build.pl
