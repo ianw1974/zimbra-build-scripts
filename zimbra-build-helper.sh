@@ -11,7 +11,7 @@
 #     Oracle Linux 8             #
 #     RHEL Enterprise Server 7/8 #
 #     Rocky Linux 8              #
-#     Ubuntu 16.04/18.04         #
+#     Ubuntu 16.04/18.04/20.04   #
 ##################################
 
 #############
@@ -26,7 +26,7 @@ ZM_BRANCH_TAG=develop
 #########################################
 
 # Supported distros variable
-DISTROS="AlmaLinux 8, CentOS 7/8, Oracle Linux 8, RHEL 7/8, Rocky Linux 8, Ubuntu 16.04/18.04"
+DISTROS="AlmaLinux 8, CentOS 7/8, Oracle Linux 8, RHEL 7/8, Rocky Linux 8, Ubuntu 16.04/18.04/20.04"
 
 #############
 # Functions #
@@ -54,7 +54,7 @@ install_dependencies() {
     DISTRIB_RELEASE=`lsb_release -r | awk '{print $2}'`
 
     # Check if running supported version and install dependencies or inform user of unsupported version and exit
-    if [ ${DISTRIB_RELEASE} == "16.04" ] || [ ${DISTRIB_RELEASE} == "18.04" ]
+    if [ ${DISTRIB_RELEASE} == "16.04" ] || [ ${DISTRIB_RELEASE} == "18.04" ] || [ ${DISTRIB_RELEASE} == "20.04" ]
     then
       deb_pkg_install
     else
