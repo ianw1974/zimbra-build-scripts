@@ -168,6 +168,7 @@ build_zimbra() {
   cp zimbra-store.patch ${MAINDIR}/${PROJECTDIR}
   #cp zimbra-rocky.patch ${MAINDIR}/${PROJECTDIR}
   cp zimbra-alma.patch ${MAINDIR}/${PROJECTDIR}
+  cp zimbra-repo.patch ${MAINDIR}/${PROJECTDIR}
   cd ${MAINDIR}/${PROJECTDIR}
   git clone -b ${ZM_BRANCH_TAG} https://github.com/zimbra/zm-build
   cp config.build ${MAINDIR}/${PROJECTDIR}/zm-build
