@@ -177,7 +177,10 @@ build_zimbra() {
   patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
 
   # Patch get_plat_tag.sh to enable support for Alma Linux
-  patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
+  if [ ${DISTRIB_ID} == "AlmaLinux" ]
+  then
+    patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
+  fi
 
   # Patch utilfunc.sh to add required APT repository for Ubuntu 20.04
   if [ ${DISTRIB_RELEASE} == "20.04" ]
