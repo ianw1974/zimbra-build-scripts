@@ -176,10 +176,7 @@ build_zimbra() {
   patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
 
   # Patch get_plat_tag.sh to enable support for additional distros
-  if [ ${DISTRIB_ID} == "AlmaLinux" ]
-  then
-    patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
-  fi
+  patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
 
   # Change to build directory and build Zimbra
   cd ${MAINDIR}/${PROJECTDIR}/zm-build
