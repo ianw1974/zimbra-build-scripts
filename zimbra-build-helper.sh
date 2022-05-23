@@ -176,9 +176,16 @@ build_zimbra() {
   # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist else build will fail
   patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
 
-  # Patch get_plat_tag.sh to enable support for Alma Linux, Rocky
-  patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
-  patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-rocky.patch
+  # Patch get_plat_tag.sh to enable support for additional distros
+  # Rocky is in develop branch, so if ZM_BRANCH_TAG was changed from
+  # develop to a tag, then apply patch else support will not be included.
+  if [ ${ZM_BRANCH_TAG} == "develop" ]
+  then
+    patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
+  else
+    patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
+    patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-rocky.patch
+  fi
 
   # Change to build directory and build Zimbra
   cd ${MAINDIR}/${PROJECTDIR}/zm-build
