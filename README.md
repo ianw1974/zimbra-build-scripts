@@ -39,6 +39,8 @@ I have tested with all versions supported by this script, and successfully built
 
 ## Preparation
 
+The build server will need at least 4GB ram.  Previously it was possible to build on 2GB, but this now fails for some of the java packages with an error: ```error starting modern compiler```.  Therefore if you see this error, increase the memory of the build server.
+
 You will need a github account, as the Zimbra build process needs to connect to github via SSH.  Therefore, you will need to generate an SSH key if you don't have one, and then upload the contents of ```id_rsa.pub``` here: https://github.com/settings/keys
 
 Please do not attempt to build Zimbra without completing this step, as it simply won't work.
