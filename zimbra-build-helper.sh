@@ -19,7 +19,6 @@
 #############
 MAINDIR=/home/git
 PROJECTDIR=zimbra
-ZM_BRANCH_TAG=develop
 
 #########################################
 # DON"T EDIT ANYTHING BELOW THESE LINES #
@@ -170,21 +169,16 @@ build_zimbra() {
   cp zimbra-alma.patch ${MAINDIR}/${PROJECTDIR}
   cp zimbra-repo.patch ${MAINDIR}/${PROJECTDIR}
   cd ${MAINDIR}/${PROJECTDIR}
-  git clone -b ${ZM_BRANCH_TAG} https://github.com/zimbra/zm-build
+  git clone https://github.com/zimbra/zm-build
   cp config.build ${MAINDIR}/${PROJECTDIR}/zm-build
 
   # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist else build will fail
   patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
 
   # Patch get_plat_tag.sh to enable support for additional distros
-  # Rocky is in develop branch, so if ZM_BRANCH_TAG was changed from
-  # develop to a tag, then apply patch else support will not be included.
-  if [ ${ZM_BRANCH_TAG} == "develop" ]
+  if [ ${DISTRIB_ID} == "AlmaLinux" ]
   then
     patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
-  else
-    patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
-    patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-rocky.patch
   fi
 
   # Change to build directory and build Zimbra

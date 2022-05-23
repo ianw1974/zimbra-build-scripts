@@ -113,24 +113,9 @@ By default, it will create and build under ```/home/git/zimbra``` and everything
 # Variables
 MAINDIR=/home/git
 PROJECTDIR=zimbra
-ZM_BRANCH_TAG=develop
 ```
 
 only change these if you really, really need to, otherwise the build process might fail if the two values above are incorrectly supplied, or you put on a partition that doesn't have enough disk space to build Zimbra.  Zimbra needs approximately ```5GB``` of available space to build successfully.
-
-### Changing build branch
-
-The ```develop``` branch should build the latest patch version based on the version in the ```config.build``` file.  In the script the ```ZM_BRANCH_TAG``` value can be changed to a specific branch/tag if you require that.  For example it could be set to the tag 9.0.0.p23:
-
-```
-ZM_BRANCH_TAG=9.0.0.p23
-```
-
-To obtain branch/tag information, visit: https://github.com/Zimbra/zm-build/ and make sure it is correctly applied to the build script for it to successfully clone that particular branch/tag.  If it's incorrectly written, the clone and build process will fail.  Therefore, only change this only if you really need to.
-
-*** IMPORTANT INFORMATION ***
-
-It has been found that using tags instead of the develop branch can be problematic and cause builds to fail.  I recommend that you just build using the develop branch instead of using a tag.  This is how the zm-build repository is meant to be used.  Using the develop branch doesn't necessarily mean you get an unstable build of Zimbra.  If you have problems building Zimbra, reset it to use the develop branch and try building again.  Old tags are just snapshots, therefore there is no guarantee you can build for it, especially if there have been upgrades to your distribution in the meantime, or you are trying to build Zimbra for a distribution that isn't natively supported by Zimbra (eg: Rocky Linux or Alma Linux)
 
 Please note, if you pull my repository in the future, or when downloading a new release, these paths will be as above.  So if you use a custom location to build other than what I have above, you will need to change this each time you pull/download.
 
