@@ -166,7 +166,7 @@ build_zimbra() {
   # Start preparing for build
   cp config.build ${MAINDIR}/${PROJECTDIR}
   cp zimbra-store.patch ${MAINDIR}/${PROJECTDIR}
-  #cp zimbra-rocky.patch ${MAINDIR}/${PROJECTDIR}
+  cp zimbra-rocky.patch ${MAINDIR}/${PROJECTDIR}
   cp zimbra-alma.patch ${MAINDIR}/${PROJECTDIR}
   cp zimbra-repo.patch ${MAINDIR}/${PROJECTDIR}
   cd ${MAINDIR}/${PROJECTDIR}
@@ -180,6 +180,12 @@ build_zimbra() {
   if [ ${DISTRIB_ID} == "AlmaLinux" ]
   then
     patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
+  fi
+
+  # Patch get_plat_tag.sh to enable support for Rocky Linux
+  if [ ${DISTRIB_ID} == "Rocky" ]
+  then
+    patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-rocky.patch
   fi
 
   # Change to build directory and build Zimbra
