@@ -3,7 +3,7 @@
 ##################################
 # Zimbra Build Helper Script     #
 # Prepared By: Ian Walker        #
-# Version: 1.0.7                 #
+# Version: 1.0.8                 #
 #                                #
 # Supports:                      #
 #     AlmaLinux 8                #
@@ -69,18 +69,8 @@ install_dependencies() {
     if [ ${DISTRIB_RELEASE} == "7" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ]
     then
       el7_pkg_install
-    elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "Rocky" ] || [ ${DISTRIB_ID} == "AlmaLinux" ]
+    elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterprise" ] || [ ${DISTRIB_ID} == "Rocky" ] || [ ${DISTRIB_ID} == "AlmaLinux" ]
     then
-      el8_pkg_install
-      is_ant_excluded
-    # Check if running RHEL8
-    elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "RedHatEnterprise" ]
-    then
-      # Import Rocky Powertools - Rocky follows RHEL8 development - needed for javapackages-tools module + ant-junit
-      # and create Rocky-PowerTools.repo of which RHEL8 doesn't have
-      sudo curl -s http://dl.rockylinux.org/pub/rocky/RPM-GPG-KEY-rockyofficial -o /etc/pki/rpm-gpg/RPM-GPG-KEY-rockyofficial
-      sudo echo "${ROCKY_POWERTOOLS}" > /etc/yum.repos.d/Rocky-PowerTools.repo
-      sudo dnf update -y
       el8_pkg_install
       is_ant_excluded
     # Check if running Oracle Linux
@@ -111,8 +101,13 @@ el7_pkg_install() {
 
 # Installs dependencies for EL8
 el8_pkg_install() {
+  if [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "RedHatEnterprise" ]
+  then
+    sudo subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
+  else
+    sudo dnf config-manager --set-enabled powertools
+  fi
   sudo dnf group install -y "Development Tools"
-  sudo dnf config-manager --set-enabled powertools
   sudo dnf module enable -y javapackages-tools
   sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
 }
