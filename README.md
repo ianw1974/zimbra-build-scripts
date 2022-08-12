@@ -137,6 +137,23 @@ At the end, you will find the created Zimbra archive file under ```/home/git/zim
 
 You can then unpack this archive file and install/upgrade Zimbra in the usual manner.
 
+## Building with Docker/Podman **WIP**
+
+A `Dockerfile` is provided as sample to build the *builder image*.
+
+To build the image (replace `podman` with `docker` if using the latter):
+
+```
+podman build --tag=zimbra-oss-builder .
+```
+
+then to actually build Zimbra:
+```
+podman run --rm -v /your-build-destination-dir/build18:/home/git/zimbra/BUILDS/ -v /root/.ssh/:/root/.ssh zimbra-oss-builder
+```
+
+There are two bind mounts: one for the build output and one for the `.ssh` containing the key to access GitHub repos.
+
 # Disclaimer
 
 Please note I cannot be held responsible for misuse of this script or any adverse affects on your system. The script is provided as-is.
