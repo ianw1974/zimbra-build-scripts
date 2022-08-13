@@ -13,7 +13,7 @@ The script created here are based on the zm-build documentation, and are to help
 * Oracle Enterprise Linux 8
 * Red Hat Enterprise Linux 7/8
 * Rocky Linux 8
-* Ubuntu 16.04/18.04
+* Ubuntu 16.04/18.04 (20.04 won't build, see #10)
 
 There is also a pre-configured ```config.build``` which will build ```Zimbra 9.0.0 OSE/FOSS```
 
