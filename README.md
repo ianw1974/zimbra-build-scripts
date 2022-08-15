@@ -139,7 +139,8 @@ You can then unpack this archive file and install/upgrade Zimbra in the usual ma
 
 ## Building with Docker/Podman **WIP**
 
-A `Dockerfile` is provided as sample to build the *builder image*.
+A `Dockerfile` is provided as sample to build the *builder image*, which can later
+be used to create a release.
 
 To build the image (replace `podman` with `docker` if using the latter):
 
@@ -147,9 +148,19 @@ To build the image (replace `podman` with `docker` if using the latter):
 podman build --tag=zimbra-oss-builder .
 ```
 
+The default settings create an image for Ubuntu 18.04. Source image can be
+customized by passing the `RELEASE` build arg:
+
+```
+podman build --tag=zimbra-oss-builder:RHEL8 --build-arg RELEASE=rockylinux/rockylinux:8.4 .
+```
+
 then to actually build Zimbra:
 ```
+# Default image
 podman run --rm -v /your-build-destination-dir/build18:/home/git/zimbra/BUILDS/ -v /root/.ssh/:/root/.ssh zimbra-oss-builder
+# Rockylinux8 image
+podman run --rm -v /your-build-destination-dir/build18:/home/git/zimbra/BUILDS/ -v /root/.ssh/:/root/.ssh zimbra-oss-builder:RHEL8
 ```
 
 There are two bind mounts: one for the build output and one for the `.ssh` containing the key to access GitHub repos.
