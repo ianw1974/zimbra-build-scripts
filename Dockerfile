@@ -2,7 +2,7 @@ ARG RELEASE=ubuntu:18.04
 FROM $RELEASE
 
 RUN if [ -f "/usr/bin/apt" ]; then apt update && apt -y install git lsb-release; fi
-RUN if [ -f "/usr/bin/yum" ]; then yum -y install git redhat-lsb-core; fi
+RUN if [ -f "/usr/bin/yum" ]; then yum -y install git redhat-lsb-core subscription-manager; fi
 ARG USER=zimbra
 #ARG PASS="some password"
 #RUN useradd -m -d /home/git -s /bin/bash $USER 
