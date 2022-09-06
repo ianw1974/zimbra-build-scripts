@@ -187,18 +187,6 @@ build_zimbra() {
   fi
 }
 
-# Config files
-ROCKY_POWERTOOLS=$(cat << EOF
-[powertools]
-name=Rocky Linux $releasever - PowerTools
-mirrorlist=https://mirrors.rockylinux.org/mirrorlist?arch=\$basearch&repo=PowerTools-\$releasever
-#baseurl=http://dl.rockylinux.org/\$contentdir/\$releasever/PowerTools/\$basearch/os/
-gpgcheck=1
-enabled=0
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rockyofficial
-EOF
-)
-
 # Help for using the script
 help() {
   echo -e "\n${CYAN}Zimbra Build Helper script!\n"
