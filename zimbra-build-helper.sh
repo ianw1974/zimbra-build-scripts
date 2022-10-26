@@ -106,6 +106,7 @@ el8_pkg_install() {
     sudo subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
   elif [ ${DISTRIB_ID} == "Rocky" ]
   then
+    sudo dnf install -y dnf-plugins-core
     sudo dnf config-manager --set-enabled powertools
   fi
   sudo dnf group install -y "Development Tools"
