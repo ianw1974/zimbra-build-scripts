@@ -11,9 +11,7 @@ FROM $RELEASE
 
 # Install some necessary dependencies
 RUN if [ -f "/usr/bin/apt" ]; then apt update && apt -y install git lsb-release; fi
-RUN if [ -f "/usr/bin/dnf" ]; then dnf -y install git redhat-lsb-core; fi
-
-#ARG USER=zimbra
+RUN if [ -f "/usr/bin/dnf" ]; then dnf -y install dnf-plugins-core git redhat-lsb-core; fi
 
 # Clone Zimbra Build Scripts
 RUN git clone https://github.com/ianw1974/zimbra-build-scripts /home/git/zimbra-build-scripts
