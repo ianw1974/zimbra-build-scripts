@@ -11,7 +11,7 @@ The script created here are based on the zm-build documentation, and are to help
 * Oracle Enterprise Linux 8
 * Red Hat Enterprise Linux 7/8
 * Rocky Linux 8
-* Ubuntu 16.04/18.04
+* Ubuntu 16.04/18.04 (20.04 won't build, see #10)
 
 There is also a pre-configured ```config.build``` which will build ```Zimbra 9.0.0 OSE/FOSS```
 
@@ -134,6 +134,34 @@ After the patch has been applied, it builds Zimbra.
 At the end, you will find the created Zimbra archive file under ```/home/git/zimbra/BUILDS/UBUNTU18_64-KEPLER-900-20201013092939-FOSS-0001/zcs-9.0.0_GA_1.UBUNTU18_64.20201013092939.tgz``` if building for Ubuntu 18.04.  The directory name and archive file name will vary if building for different distributions.
 
 You can then unpack this archive file and install/upgrade Zimbra in the usual manner.
+
+## Building with Docker/Podman **WIP**
+
+A `Dockerfile` is provided as sample to build the *builder image*, which can later
+be used to create a release.
+
+To build the image (replace `podman` with `docker` if using the latter):
+
+```
+podman build --tag=zimbra-oss-builder .
+```
+
+The default settings create an image for Ubuntu 18.04. Source image can be
+customized by passing the `RELEASE` build arg:
+
+```
+podman build --tag=zimbra-oss-builder:RHEL8 --build-arg RELEASE=rockylinux/rockylinux:8.4 .
+```
+
+then to actually build Zimbra:
+```
+# Default image
+podman run --rm -v /your-build-destination-dir/build18:/home/git/zimbra/BUILDS/ -v /root/.ssh/:/root/.ssh zimbra-oss-builder
+# Rockylinux8 image
+podman run --rm -v /your-build-destination-dir/build18:/home/git/zimbra/BUILDS/ -v /root/.ssh/:/root/.ssh zimbra-oss-builder:RHEL8
+```
+
+There are two bind mounts: one for the build output and one for the `.ssh` containing the key to access GitHub repos.
 
 # Disclaimer
 
