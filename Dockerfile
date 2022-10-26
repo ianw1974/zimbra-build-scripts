@@ -1,6 +1,8 @@
 # Uncomment what distro you wish to build
-ARG RELEASE=ubuntu:18.04
+#ARG RELEASE=almalinux:8.6
+#ARG RELEASE=oraclelinux:8.6
 #ARG RELEASE=rockylinux:8.6
+ARG RELEASE=ubuntu:18.04
 
 # DO NOT EDIT BELOW THIS LINE
 

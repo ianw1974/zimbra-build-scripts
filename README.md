@@ -137,8 +137,7 @@ You can then unpack this archive file and install/upgrade Zimbra in the usual ma
 
 ## Building with Docker/Podman **WIP**
 
-A `Dockerfile` is provided as sample to build the *builder image*, which can later
-be used to create a release.
+A `Dockerfile` is provided as sample to build the *builder image*, which can later be used to create a release.
 
 To build the image (replace `podman` with `docker` if using the latter):
 
@@ -150,16 +149,20 @@ The default Dockerfile builds for Ubuntu 18.04.  To build for other distribution
 
 ```
 # Uncomment what distro you wish to build
-ARG RELEASE=ubuntu:18.04
+#ARG RELEASE=almalinux:8.6
+#ARG RELEASE=oraclelinux:8.6
 #ARG RELEASE=rockylinux:8.6
+ARG RELEASE=ubuntu:18.04
 ```
 
 for example to build for Rocky Linux 8.6 we comment the Ubuntu line, and uncomment the Rocky Linux line, so it looks like this:
 
 ```
 # Uncomment what distro you wish to build
-#ARG RELEASE=ubuntu:18.04
+#ARG RELEASE=almalinux:8.6
+#ARG RELEASE=oraclelinux:8.6
 ARG RELEASE=rockylinux:8.6
+#ARG RELEASE=ubuntu:18.04
 ```
 
 Now we can build Zimbra:
