@@ -10,7 +10,7 @@ ARG RELEASE=ubuntu:18.04
 FROM $RELEASE
 
 # Install some necessary dependencies
-RUN if [ -f "/usr/bin/apt" ]; then apt update && apt -y install git lsb-release; fi
+RUN if [ -f "/usr/bin/apt-get" ]; then apt-get update && apt-get -y install git lsb-release; fi
 RUN if [ -f "/usr/bin/dnf" ]; then dnf -y install dnf-plugins-core git redhat-lsb-core; fi
 
 # Clone Zimbra Build Scripts
