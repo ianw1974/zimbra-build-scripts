@@ -146,22 +146,29 @@ To build the image (replace `podman` with `docker` if using the latter):
 podman build --tag=zimbra-oss-builder .
 ```
 
-The default settings create an image for Ubuntu 18.04. Source image can be
-customized by passing the `RELEASE` build arg:
+The default Dockerfile builds for Ubuntu 18.04.  To build for other distributions, edit the Dockerfile and comment/uncomment the version you wish to build for.  An example is shown below:
 
 ```
-podman build --tag=zimbra-oss-builder:RHEL8 --build-arg RELEASE=rockylinux/rockylinux:8.4 .
+# Uncomment what distro you wish to build
+ARG RELEASE=ubuntu:18.04
+#ARG RELEASE=rockylinux:8.6
 ```
 
-then to actually build Zimbra:
+for example to build for Rocky Linux 8.6 we comment the Ubuntu line, and uncomment the Rocky Linux line, so it looks like this:
+
 ```
-# Default image
-podman run --rm -v /your-build-destination-dir/build18:/home/git/zimbra/BUILDS/ -v /root/.ssh/:/root/.ssh zimbra-oss-builder
-# Rockylinux8 image
-podman run --rm -v /your-build-destination-dir/build18:/home/git/zimbra/BUILDS/ -v /root/.ssh/:/root/.ssh zimbra-oss-builder:RHEL8
+# Uncomment what distro you wish to build
+#ARG RELEASE=ubuntu:18.04
+ARG RELEASE=rockylinux:8.6
 ```
 
-There are two bind mounts: one for the build output and one for the `.ssh` containing the key to access GitHub repos.
+Now we can build Zimbra:
+
+```
+podman run --rm -v zbs:/home/git/zimbra/BUILDS -v /root/.ssh:/root/.ssh zimbra-oss-builder
+```
+
+There are two bind mounts: one for the build output and one for the `~/.ssh` directory containing the key to access GitHub repos.  Since you are most likely using docker/podman as root, the path above should be fine.  Adapt where necessary.
 
 # Disclaimer
 

@@ -1,17 +1,31 @@
+# Uncomment what distro you wish to build
 ARG RELEASE=ubuntu:18.04
+#ARG RELEASE=rockylinux:8.6
+
+# DO NOT EDIT BELOW THIS LINE
+
+# Let's build for the version set above
 FROM $RELEASE
 
+# Install some necessary dependencies
 RUN if [ -f "/usr/bin/apt" ]; then apt update && apt -y install git lsb-release; fi
-RUN if [ -f "/usr/bin/yum" ]; then yum -y install git redhat-lsb-core subscription-manager; fi
-ARG USER=zimbra
-#ARG PASS="some password"
-#RUN useradd -m -d /home/git -s /bin/bash $USER 
-#USER $USER
+RUN if [ -f "/usr/bin/dnf" ]; then dnf -y install git redhat-lsb-core; fi
+RUN if [ -f "/usr/bin/yum" ]; then yum -y install git redhat-lsb-core; fi
+
+#ARG USER=zimbra
+
+# Clone Zimbra Build Scripts
 RUN git clone https://github.com/ianw1974/zimbra-build-scripts /home/git/zimbra-build-scripts
 WORKDIR /home/git/zimbra-build-scripts
+
+# Remove sudo from build script
 RUN sed -i 's/sudo\ //g' ./zimbra-build-helper.sh
+
+# Install dependencies
 RUN ./zimbra-build-helper.sh --install-deps
 
+# Volume to retrieve builds
 VOLUME /home/git/zimbra/BUILDS/
 
+# Build Zimbra
 ENTRYPOINT ["/home/git/zimbra-build-scripts/zimbra-build-helper.sh", "--build-zimbra"]
