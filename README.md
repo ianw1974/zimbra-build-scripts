@@ -162,7 +162,7 @@ ARG RELEASE=rockylinux:8.6
 To build the image (replace `docker` with `podman` if using the latter):
 
 ```
-docker build --tag=zimbra-oss-builder .
+docker build --tag=zbs .
 ```
 
 Now we can build Zimbra:
@@ -171,7 +171,7 @@ Now we can build Zimbra:
 docker run --rm -v zbs:/home/git/zimbra/BUILDS -v /root/.ssh:/root/.ssh zimbra-oss-builder
 ```
 
-There are two bind mounts: one for the build output and one for the `~/.ssh` directory containing the key to access GitHub repos.  Since you are most likely using docker/podman as root, the path above should be fine.  Adapt where necessary.
+There are two bind mounts: one for the build output and one for the `~/.ssh` directory containing the key to access GitHub repos.  Since you are most likely using docker/podman as root, the path above should be fine.  Adapt where necessary.  For docker, using the above command will create the volume ```/var/lib/docker/volumes/zbs``` and the builds can be found here later.
 
 # Disclaimer
 
