@@ -12,7 +12,6 @@ FROM $RELEASE
 # Install some necessary dependencies
 RUN if [ -f "/usr/bin/apt" ]; then apt update && apt -y install git lsb-release; fi
 RUN if [ -f "/usr/bin/dnf" ]; then dnf -y install git redhat-lsb-core; fi
-RUN if [ -f "/usr/bin/yum" ]; then yum -y install git redhat-lsb-core; fi
 
 #ARG USER=zimbra
 
