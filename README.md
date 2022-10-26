@@ -135,14 +135,14 @@ At the end, you will find the created Zimbra archive file under ```/home/git/zim
 
 You can then unpack this archive file and install/upgrade Zimbra in the usual manner.
 
-## Building with Docker/Podman **WIP**
+## Building with Docker/Podman
 
 A ```Dockerfile``` is provided to build the *builder image*, which can later be used to create a release.
 
-The default ```Dockerfile``` builds for Ubuntu 18.04.  To build for other distributions, edit the ```Dockerfile``` and comment/uncomment the version you wish to build for.  An example is shown below:
+The default ```Dockerfile``` builds an image for ```Ubuntu 18.04```.  To build for other distributions, edit the ```Dockerfile``` and comment/uncomment the version you wish to build for.  An example is shown below:
 
 ```
-# Uncomment what distro you wish to build
+# Uncomment the distro that you wish to build for
 #ARG RELEASE=almalinux:8.6
 #ARG RELEASE=oraclelinux:8.6
 #ARG RELEASE=rockylinux:8.6
@@ -152,12 +152,14 @@ ARG RELEASE=ubuntu:18.04
 for example to build for Rocky Linux 8.6 we comment the Ubuntu line, and uncomment the Rocky Linux line, so it looks like this:
 
 ```
-# Uncomment what distro you wish to build
+# Uncomment the distro that you wish to build for
 #ARG RELEASE=almalinux:8.6
 #ARG RELEASE=oraclelinux:8.6
 ARG RELEASE=rockylinux:8.6
 #ARG RELEASE=ubuntu:18.04
 ```
+
+Build support for CentOS is excluded due to it effectively being EOL.  RHEL is excluded due to their docker images using ```microdnf``` as a package manager.  It may be offered in the future.  Ubuntu 16.04 is excluded due to it being EOL.
 
 To build the image (replace `docker` with `podman` if using the latter):
 

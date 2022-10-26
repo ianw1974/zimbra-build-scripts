@@ -1,4 +1,4 @@
-# Uncomment what distro you wish to build
+# Uncomment the distro that you wish to build for
 #ARG RELEASE=almalinux:8.6
 #ARG RELEASE=oraclelinux:8.6
 #ARG RELEASE=rockylinux:8.6
