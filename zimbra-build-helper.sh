@@ -104,7 +104,8 @@ el8_pkg_install() {
   if [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "RedHatEnterprise" ]
   then
     sudo subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-  else
+  elif [ ${DISTRIB_ID} == "Rocky" ]
+  then
     sudo dnf config-manager --set-enabled powertools
   fi
   sudo dnf group install -y "Development Tools"
