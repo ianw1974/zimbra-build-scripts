@@ -3,6 +3,7 @@
 #ARG RELEASE=oraclelinux:8.6
 #ARG RELEASE=rockylinux:8.6
 ARG RELEASE=ubuntu:18.04
+#ARG RELEASE=ubuntu:20.04
 
 # DO NOT EDIT BELOW THIS LINE
 
@@ -19,6 +20,9 @@ WORKDIR /home/git/zimbra-build-scripts
 
 # Remove sudo from build script
 RUN sed -i 's/sudo\ //g' ./zimbra-build-helper.sh
+
+# Install and pre-configure timezone (needed on Ubuntu 20.04)
+RUN if [ -f "/usr/bin/apt-get" ]; then DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata ; fi
 
 # Install dependencies
 RUN ./zimbra-build-helper.sh --install-deps
