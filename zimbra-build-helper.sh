@@ -113,7 +113,7 @@ el8_pkg_install() {
   sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
 }
 
-#Installs dependencies for OEL8
+# Installs dependencies for OEL8
 oel8_pkg_install() {
   sudo dnf group install -y "Development Tools"
   sudo dnf config-manager --set-enabled ol8_codeready_builder
