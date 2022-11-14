@@ -161,7 +161,7 @@ ARG RELEASE=rockylinux:8.6
 #ARG RELEASE=ubuntu:18.04
 ```
 
-Build support for CentOS is excluded due to it effectively being EOL.  RHEL is excluded due to their docker images using ```microdnf``` as a package manager.  It may be offered in the future.  Ubuntu 16.04 is excluded due to it being EOL.
+Build support for CentOS is excluded due to it effectively being EOL.  RHEL is excluded due to requiring subscriptions for enabling repositories - this makes things difficult for the build process.  It may be offered in the future.  Ubuntu 16.04 is excluded due to it being EOL.
 
 Just like when building normally, an SSH key is required to be uploaded to your account.  With the docker/podman commands, we are mounting the ```/root/.ssh``` directory to the docker/podman container - therefore you have to make sure that your SSH key has been generated, uploaded to your GitHub account and placed within this directory.  If not, then the build process within docker/podman will fail.  Follow the steps in the *Preparation* section at the beginning of this README.
 
