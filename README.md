@@ -2,7 +2,7 @@
 
 # Instructions
 
-The following script is for use with Zimbra's Github repository: https://github.com/zimbra/zm-build
+The following script is for use with Zimbra's GitHub repository: https://github.com/zimbra/zm-build
 
 Builds created with this build script can be found on my website [here](https://linuxsolutions.org) if you want to save yourself the hassle of building yourself!  Builds on the website will be updated quarterly.
 
@@ -41,7 +41,7 @@ I have tested with all versions supported by this script, and successfully built
 
 The build server will need at least 4GB ram.  Previously it was possible to build on 2GB, but this now fails for some of the java packages with an error: ```error starting modern compiler```.  Therefore if you see this error, increase the memory of the build server.
 
-You will need a github account, as the Zimbra build process needs to connect to github via SSH.  Therefore, you will need to generate an SSH key if you don't have one, and then upload the contents of ```id_rsa.pub``` here: https://github.com/settings/keys
+You will need a GitHub account, as the Zimbra build process needs to connect to GitHub via SSH.  Therefore, you will need to generate an SSH key if you don't have one, and then upload the contents of ```id_rsa.pub``` here: https://github.com/settings/keys
 
 Please do not attempt to build Zimbra without completing this step, as it simply won't work.
 
@@ -51,7 +51,7 @@ You can create a key by doing this:
 ssh-keygen -t rsa -b 4096 -C "your_email@address"
 ```
 
-the email address needs to be the one used for your github account.
+the email address needs to be the one used for your GitHub account.
 
 Make sure that there are no other versions of JRE/JDK installed on your build server as these will conflict with openjdk-8 which Zimbra uses.  For example on Ubuntu 18.04 by default some OpenJDK-11 packages are installed, so these needs to be removed prior to building.
 
@@ -66,7 +66,7 @@ now you can run the script.
 
 ## Interactive Help
 
-A help parameter ```--help``` has been added to the script so you can reference it to find out what steps need to be done to build Zimbra.  These saves you from having to reference this readme file.  It summarises the steps required, to make sure that you have uploaded an SSH key to your github profile, that any other version of Java has been removed from your system prior to installing dependencies and building Zimbra.
+A help parameter ```--help``` has been added to the script so you can reference it to find out what steps need to be done to build Zimbra.  These saves you from having to reference this readme file.  It summarises the steps required, to make sure that you have uploaded an SSH key to your GitHub profile, that any other version of Java has been removed from your system prior to installing dependencies and building Zimbra.
 
 ```
 ./zimbra-build-helper.sh --help
@@ -87,7 +87,7 @@ PROJECTDIR=zimbra
 Build summary step-by-step:
 
   1. Generate ssh key: ssh-keygen -t rsa -b 4096 -C "your_email@address"
-  2. Upload this to your github profile: https://github.com/settings/keys
+  2. Upload this to your GitHub profile: https://github.com/settings/keys
   3. Only OpenJDK 8 can be installed on the build server, remove other versions
   4. Run:./zimbra-build-helper.sh --install-deps
   5. Run:./zimbra-build-helper.sh --build-zimbra
@@ -162,6 +162,8 @@ ARG RELEASE=rockylinux:8.6
 ```
 
 Build support for CentOS is excluded due to it effectively being EOL.  RHEL is excluded due to their docker images using ```microdnf``` as a package manager.  It may be offered in the future.  Ubuntu 16.04 is excluded due to it being EOL.
+
+Just like when building normally, an SSH key is required to be uploaded to your account.  With the docker/podman commands, we are mounting the ```/root/.ssh``` directory to the docker/podman container - therefore you have to make sure that your SSH key has been generated, uploaded to your GitHub account and placed within this directory.  If not, then the build process within docker/podman will fail.  Follow the steps in the *Preparation* section at the beginning of this README.
 
 To build the image (replace `docker` with `podman` if using the latter):
 
