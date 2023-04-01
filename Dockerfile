@@ -18,6 +18,9 @@ RUN if [ -f "/usr/bin/dnf" ]; then dnf -y install dnf-plugins-core git redhat-ls
 RUN git clone https://github.com/ianw1974/zimbra-build-scripts /home/git/zimbra-build-scripts
 WORKDIR /home/git/zimbra-build-scripts
 
+# Set Zimbra build version
+#RUN cp config.build.9 config.build
+
 # Remove sudo from build script
 RUN sed -i 's/sudo\ //g' ./zimbra-build-helper.sh
 
