@@ -96,6 +96,9 @@ deb_pkg_install() {
 # Installs dependencies for EL7
 el7_pkg_install() {
   sudo yum groupinstall -y 'Development Tools'
+  sudo subscription-manager repos --enable rhel-7-server-extras-rpms
+  sudo subscription-manager repos --enable rhel-7-server-supplementary-rpms
+  sudo subscription-manager repos --enable rhel-7-server-optional-rpms
   sudo yum install -y java-1.8.0-openjdk ant ant-junit ruby git maven cpan wget perl-IPC-Cmd rpm-build createrepo
 }
 
