@@ -4,7 +4,7 @@
 
 The following script is for use with Zimbra's GitHub repository: https://github.com/zimbra/zm-build
 
-Builds created with this build script can be found on my website [here](https://linuxsolutions.org) if you want to save yourself the hassle of building yourself!  Builds on the website will be updated quarterly.
+Builds created with this build script can be found on my website [here](https://techfiles.online/zimbra/) if you want to save yourself the hassle of building yourself!  Builds on the website will be updated quarterly.
 
 The script created here are based on the zm-build documentation, and are to help make things much easier for you.  The script automatically detect your distribution, installs dependencies, and builds Zimbra without you having to do anything else manually.  So far it supports the distributions below:
 
