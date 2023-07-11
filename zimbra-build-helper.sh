@@ -134,6 +134,17 @@ is_ant_excluded() {
 }
 
 build_zimbra() {
+    # Exit if no config.build file
+    if [ ! -f config.build ]
+    then
+        echo -e "\n${RED}ERROR: No config.build file!\n"
+        echo -e "${NORMAL}Depending on the version of Zimbra you wish to build, you will need to"
+        echo -e "copy either config.build.9 or config.build.10 to config.build first.\n"
+        echo -e "Eg: ${YELLOW}cp config.build.10 config.build${NORMAL}\n"
+        echo -e "if you wish to build Zimbra 10.\n"
+        exit 1
+    fi
+
     # Get current userid - we need this if using sudo to fix directory permissions
     USERID=`echo ${USER}`
 
@@ -203,9 +214,10 @@ help() {
     echo -e "${CYAN}Build summary step-by-step:\n${NORMAL}"
     echo -e "  ${YELLOW}1. Generate ssh key:${NORMAL} ssh-keygen -t rsa -b 4096 -C \"your_email@address\""
     echo -e "  ${YELLOW}2. Upload this to your GitHub profile:${NORMAL} https://github.com/settings/keys"
-    echo -e "  ${YELLOW}3. Only OpenJDK 8 can be installed on the build server, remove other versions${NORMAL}"
+    echo -e "  ${YELLOW}3. Only OpenJDK 8 can be installed on the build server, remove other versions"
     echo -e "  ${YELLOW}4. Run:${NORMAL}./zimbra-build-helper.sh --install-deps"
-    echo -e "  ${YELLOW}5. Run:${NORMAL}./zimbra-build-helper.sh --build-zimbra\n"
+    echo -e "  ${YELLOW}5. Copy either config.build.9 or config.build.10 to config.build"
+    echo -e "  ${YELLOW}6. Run:${NORMAL}./zimbra-build-helper.sh --build-zimbra\n"
 }
 
 error() {
