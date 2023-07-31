@@ -175,6 +175,7 @@ build_zimbra() {
     # Start preparing for build
     cp config.build ${MAINDIR}/${PROJECTDIR}
     cp zimbra-store.patch ${MAINDIR}/${PROJECTDIR}
+    cp zimbra-store-jetty-fix.patch ${MAINDIR}/${PROJECTDIR}
     cp zimbra-rocky.patch ${MAINDIR}/${PROJECTDIR}
     cp zimbra-alma.patch ${MAINDIR}/${PROJECTDIR}
     cp zimbra-repo.patch ${MAINDIR}/${PROJECTDIR}
@@ -197,7 +198,7 @@ build_zimbra() {
     patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
 
     # Patch zimbra-store.sh to use alternative jetty.xml.production config file without onlyoffice
-    patch ${MAINDIR/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store-jetty-fix.patch
+    patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store-jetty-fix.patch
 
     # Patch get_plat_tag.sh to enable support for additional distros
     patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
