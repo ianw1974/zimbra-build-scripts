@@ -182,7 +182,7 @@ build_zimbra() {
     cd ${MAINDIR}/${PROJECTDIR}
 
     # Patch Zimbra 9 to remove onlyoffice
-    ZIMBRA_VER=`grep BUILD_RELEASE_NO config.build.9 | awk '{print $3}'`
+    ZIMBRA_VER=`grep BUILD_RELEASE_NO config.build | awk '{print $3}'`
     if [ "${ZIMBRA_VER}" == "9.0.0" ]
     then
         git clone https://github.com/zimbra/zm-jetty-conf
