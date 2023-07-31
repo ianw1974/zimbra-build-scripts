@@ -175,22 +175,23 @@ build_zimbra() {
     # Start preparing for build
     cp config.build ${MAINDIR}/${PROJECTDIR}
     cp zimbra-store.patch ${MAINDIR}/${PROJECTDIR}
-    cp zimbra-store-jetty-fix.patch ${MAINDIR}/${PROJECTDIR}
     cp zimbra-rocky.patch ${MAINDIR}/${PROJECTDIR}
     cp zimbra-alma.patch ${MAINDIR}/${PROJECTDIR}
     cp zimbra-repo.patch ${MAINDIR}/${PROJECTDIR}
     cp jetty.xml.production.patch ${MAINDIR}/${PROJECTDIR}
     cd ${MAINDIR}/${PROJECTDIR}
 
-    # Clone zm-jetty-conf to get latest config file to patch later
-    git clone https://github.com/zimbra/zm-jetty-conf
+    # Patch Zimbra 9 to remove onlyoffice
+    ZIMBRA_VER=`grep BUILD_RELEASE_NO config.build.9 | awk '{print $3}'`
+    if [ "${ZIMBRA_VER}" == "9.0.0" ]
+    then
+        git clone https://github.com/zimbra/zm-jetty-conf
+        patch ${MAINDIR}/${PROJECTDIR}/zm-jetty-conf/conf/jetty/jetty.xml.production jetty.xml.production.patch
+    fi
 
     # Clone zm-build repository
     git clone https://github.com/zimbra/zm-build
     cp config.build ${MAINDIR}/${PROJECTDIR}/zm-build
-
-    # Patch jetty.xml.production
-    patch ${MAINDIR}/${PROJECTDIR}/zm-jetty-conf/conf/jetty/jetty.xml.production jetty.xml.production.patch
 
     # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist else build will fail
     patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
