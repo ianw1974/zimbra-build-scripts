@@ -192,7 +192,7 @@ build_zimbra() {
     # Set repositories to use 90 instead of 1000
     if [ "${ZIMBRA_VER}" == "9.0.0" ]
     then
-        sed -i 's/1000/90/g' zm-build/rpmconf/Install/Util/utilfunc.sh
+        sed -i 's/1000/90/g' ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Install/Util/utilfunc.sh
     fi
 
     # Clone zm-build repository
