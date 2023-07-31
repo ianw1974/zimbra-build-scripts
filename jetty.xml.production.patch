@@ -1,0 +1,41 @@
+--- zm-jetty-conf/conf/jetty/jetty.xml.production	2023-07-31 10:44:27.458414792 +0200
++++ jetty.xml.production	2023-07-31 11:02:16.504675882 +0200
+@@ -305,38 +305,6 @@
+ 		</Arg>
+ 	</Call>
+ 
+-    <Call id="docServerHttpsConnector" name="addConnector">
+-        <Arg>
+-            <New id="docServer" class="org.eclipse.jetty.server.ServerConnector">
+-                <Arg name="server">
+-                    <Ref refid="Server" />
+-                </Arg>
+-                <Arg name="factories">
+-                    <Array type="org.eclipse.jetty.server.ConnectionFactory">
+-                        <Item>
+-                            <New class="org.eclipse.jetty.server.SslConnectionFactory">
+-                                <Arg name="next">http/1.1</Arg>
+-                                <Arg name="sslContextFactory">
+-                                    <Ref refid="zimbraSslContextFactory" />
+-                                </Arg>
+-                            </New>
+-                        </Item>
+-                        <Item>
+-                            <New class="org.eclipse.jetty.server.HttpConnectionFactory">
+-                                <Arg name="config">
+-                                    <Ref refid="sslHttpConfig" />
+-                                </Arg>
+-                            </New>
+-                        </Item>
+-                    </Array>
+-                </Arg>
+-                <Set name="host"></Set>
+-                <Set name="port">%%zimbraDocumentEditingCallbackPort%%</Set>
+-                <Set name="idleTimeout">60000</Set>
+-            </New>
+-        </Arg>
+-    </Call>
+-
+     <!-- ADMINLOCALBEGIN %%comment VAR:zimbraAdminLocalBind,-->%%
+ 	<Call id="adminLocalConnector" name="addConnector">
+ 		<Arg>
