@@ -189,15 +189,15 @@ build_zimbra() {
         patch ${MAINDIR}/${PROJECTDIR}/zm-jetty-conf/conf/jetty/jetty.xml.production jetty.xml.production.patch
     fi
 
+    # Clone zm-build repository
+    git clone https://github.com/zimbra/zm-build
+    cp config.build ${MAINDIR}/${PROJECTDIR}/zm-build
+
     # Set repositories to use 90 instead of 1000
     if [ "${ZIMBRA_VER}" == "9.0.0" ]
     then
         sed -i 's/1000/90/g' ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Install/Util/utilfunc.sh
     fi
-
-    # Clone zm-build repository
-    git clone https://github.com/zimbra/zm-build
-    cp config.build ${MAINDIR}/${PROJECTDIR}/zm-build
 
     # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist else build will fail
     patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
