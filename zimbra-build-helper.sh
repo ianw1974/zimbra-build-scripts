@@ -189,9 +189,6 @@ build_zimbra() {
     # Patch get_plat_tag.sh to enable support for additional distros
     patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
 
-    # Patch jetty.xml.production due to onlyoffice not being included in OSE/FOSS edition
-    patch ${MAINDIR}/${PROJECTDIR}/zm-jetty-conf/conf/jetty/jetty.xml.production jetty.xml.production.patch
-
     # Change to build directory and build Zimbra
     cd ${MAINDIR}/${PROJECTDIR}/zm-build
     ./build.pl --ant-options -DskipTests=true
