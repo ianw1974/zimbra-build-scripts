@@ -180,11 +180,24 @@ build_zimbra() {
     cp zimbra-repo.patch ${MAINDIR}/${PROJECTDIR}
     cp jetty.xml.production.patch ${MAINDIR}/${PROJECTDIR}
     cd ${MAINDIR}/${PROJECTDIR}
+
+    # Clone zm-jetty-conf to get latest config file to patch later
+    git clone https://github.com/zimbra/zm-jetty-conf
+    cp ${MAINDIR}/${PROJECTDIR}/zm-jetty-conf/conf/jetty/jetty.xml.production /tmp/jetty.xml.production
+    rm -rf ${MAINDIR}/${PROJECTDIR}/zm-jetty-conf
+
+    # Clone zm-build repository
     git clone https://github.com/zimbra/zm-build
     cp config.build ${MAINDIR}/${PROJECTDIR}/zm-build
 
+    # Patch /tmp/jetty.xml.production
+    patch /tmp/jetty.xml.production jetty.xml.production.patch
+
     # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist else build will fail
     patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
+
+    # Patch zimbra-store.sh to use alternative jetty.xml.production config file without onlyoffice
+    patch ${MAINDIR/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store-jetty-fix.patch
 
     # Patch get_plat_tag.sh to enable support for additional distros
     patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
