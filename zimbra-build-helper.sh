@@ -189,6 +189,12 @@ build_zimbra() {
         patch ${MAINDIR}/${PROJECTDIR}/zm-jetty-conf/conf/jetty/jetty.xml.production jetty.xml.production.patch
     fi
 
+    # Set repositories to use 90 instead of 1000
+    if [ "${ZIMBRA_VER}" == "9.0.0" ]
+    then
+        sed -i 's/1000/90/g' zm-build/rpmconf/Install/Util/utilfunc.sh
+    fi
+
     # Clone zm-build repository
     git clone https://github.com/zimbra/zm-build
     cp config.build ${MAINDIR}/${PROJECTDIR}/zm-build
