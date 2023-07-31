@@ -119,7 +119,21 @@ PROJECTDIR=zimbra
 
 only change these if you really, really need to, otherwise the build process might fail if the two values above are incorrectly supplied, or you put on a partition that doesn't have enough disk space to build Zimbra.  Zimbra needs approximately ```5GB``` of available space to build successfully.
 
-Please note, if you pull my repository in the future, or when downloading a new release, these paths will be as above.  So if you use a custom location to build other than what I have above, you will need to change this each time you pull/download.
+Support has been added to allow building from tags, however whether this works or not, will vary.  There have been problems with this in the past due to inconsistencies in Zimbra's repositories.  If it fails to build from a tag, use the default settings which utilise the ```develop``` branch as below:
+
+```
+ZM_BRANCH_TAG=develop
+```
+
+If you wish to use a tag, then change for example like below:
+
+```
+ZM_BRANCH_TAG=9.0.0.p33
+```
+
+ensure that you are using a correct tag, else the build will fail.  Tags can be viewed on Zimbra's zm-build repository here: https://github.com/zimbra/zm-build
+
+Please note, if you pull my repository in the future, or when downloading a new release, these changes will be lost.  So if you use a custom location/settings to build other than what I have by default, you will need to change this each time you pull/download.
 
 Once you have done all the changes you need, build Zimbra by running:
 
