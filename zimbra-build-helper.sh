@@ -19,6 +19,7 @@
 #############
 MAINDIR=/home/git
 PROJECTDIR=zimbra
+ZM_BRANCH_TAG=develop
 
 #########################################
 # DON"T EDIT ANYTHING BELOW THESE LINES #
@@ -190,7 +191,7 @@ build_zimbra() {
     fi
 
     # Clone zm-build repository
-    git clone https://github.com/zimbra/zm-build
+    git clone -b ${ZM_BRANCH_TAG} https://github.com/zimbra/zm-build
     cp config.build ${MAINDIR}/${PROJECTDIR}/zm-build
 
     # Set repositories to use 90 instead of 1000
