@@ -1,3 +1,5 @@
+**Please do not open issues relating to Zimbra itself.  Any issues opened here should ONLY be for issues relating to the build scripts that I provide and nothing more.  Any other issues will be closed autoomatically.**
+
 ---
 name: Feature request
 about: Suggest an idea for this project
