@@ -175,12 +175,12 @@ build_zimbra() {
     fi
 
     # Start preparing for build
-    cp config.build ${MAINDIR}/${PROJECTDIR}
-    cp zimbra-store.patch ${MAINDIR}/${PROJECTDIR}
-    cp zimbra-rocky.patch ${MAINDIR}/${PROJECTDIR}
-    cp zimbra-alma.patch ${MAINDIR}/${PROJECTDIR}
-    cp zimbra-repo.patch ${MAINDIR}/${PROJECTDIR}
-    cp jetty.xml.production.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/config.build ${MAINDIR}/${PROJECTDIR}
+    cp patches/zimbra-store.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/zimbra-rocky.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/zimbra-alma.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/zimbra-repo.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/jetty.xml.production.patch ${MAINDIR}/${PROJECTDIR}
     cd ${MAINDIR}/${PROJECTDIR}
 
     # Patch Zimbra 9 to remove onlyoffice
