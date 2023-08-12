@@ -77,6 +77,7 @@ Valid parameters are as follows:
 
   --install-deps   - Installs required dependencies
   --build-zimbra   - Builds Zimbra
+  --cleanup        - Cleanup previously attempted builds
   --help           - Shows this help screen
 
 At the beginning of the script these variables can be changed if you want:

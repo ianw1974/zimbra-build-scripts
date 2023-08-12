@@ -3,7 +3,7 @@
 ##################################
 # Zimbra Build Helper Script     #
 # Prepared By: Ian Walker        #
-# Version: 1.1.2                 #
+# Version: 1.1.3                 #
 #                                #
 # Supports:                      #
 #     AlmaLinux 8                #
@@ -163,12 +163,8 @@ build_zimbra() {
     # or if it doesn't exist, then create it and set permissions
     if [ -d "${MAINDIR}/${PROJECTDIR}" ]
     then
-        echo "${PROJECTDIR} directory exists, cleaning up existing content..."
+        echo "${PROJECTDIR} directory exists, cleaning up .staging content..."
         rm -rf ${MAINDIR}/${PROJECTDIR}/.staging
-        for DIR in `ls ${MAINDIR}/${PROJECTDIR}`
-        do
-            rm -rf ${MAINDIR}/${PROJECTDIR}/$DIR
-        done
     else
         sudo mkdir ${MAINDIR}/${PROJECTDIR}
         sudo chown ${USERID}:${USERID} ${MAINDIR}/${PROJECTDIR}
@@ -176,11 +172,12 @@ build_zimbra() {
 
     # Start preparing for build
     cp config.build ${MAINDIR}/${PROJECTDIR}
-    cp zimbra-store.patch ${MAINDIR}/${PROJECTDIR}
-    cp zimbra-rocky.patch ${MAINDIR}/${PROJECTDIR}
-    cp zimbra-alma.patch ${MAINDIR}/${PROJECTDIR}
-    cp zimbra-repo.patch ${MAINDIR}/${PROJECTDIR}
-    cp jetty.xml.production.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/zimbra-store.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/zimbra-rocky.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/zimbra-alma.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/zimbra-repo.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/jetty.xml.production.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/zimbra-utilfunc.sh.patch ${MAINDIR}/${PROJECTDIR}
     cd ${MAINDIR}/${PROJECTDIR}
 
     # Patch Zimbra 9 to remove onlyoffice
@@ -200,6 +197,9 @@ build_zimbra() {
     then
         sed -i 's/1000/90/g' ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Install/Util/utilfunc.sh
     fi
+
+    # Patch utilfunc.sh to install net-tools dependency
+    patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Install/Util/utilfunc.sh zimbra-utilfunc.sh.patch
 
     # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist else build will fail
     patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
@@ -221,12 +221,24 @@ build_zimbra() {
     fi
 }
 
+cleanup() {
+    echo "Cleaning up previous attempted builds..."
+    echo "${PROJECTDIR} directory exists, cleaning up .staging content..."
+    rm -rf ${MAINDIR}/${PROJECTDIR}/.staging
+    echo "Removing cloned Zimbra repositories..."
+    for DIR in `ls ${MAINDIR}/${PROJECTDIR}`
+    do
+        rm -rf ${MAINDIR}/${PROJECTDIR}/$DIR
+    done
+}
+
 # Help for using the script
 help() {
     echo -e "\n${CYAN}Zimbra Build Helper script!\n"
     echo -e "${YELLOW}Valid parameters are as follows:${NORMAL}\n"
     echo -e "  ${GREEN}--install-deps${NORMAL}\t - Installs required dependencies"
     echo -e "  ${GREEN}--build-zimbra${NORMAL}\t - Builds Zimbra"
+    echo -e "  ${GREEN}--cleanup${NORMAL}\t\t - Cleanup previous attempted builds"
     echo -e "  ${GREEN}--help${NORMAL}\t\t - Shows this help screen\n"
     echo -e "${CYAN}At the beginning of the script these variables can be changed if you want:${NORMAL}"
     echo -e "${YELLOW}\nMAINDIR=${NORMAL}/home/git\n${YELLOW}PROJECTDIR=${NORMAL}zimbra\n"
@@ -259,6 +271,9 @@ case ${PARMS} in
         ;;
     --build-zimbra)
         build_zimbra
+        ;;
+    --cleanup)
+        cleanup
         ;;
     --help)
         help
