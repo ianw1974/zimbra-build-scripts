@@ -156,7 +156,7 @@ You can then unpack this archive file and install/upgrade Zimbra in the usual ma
 
 A ```Dockerfile``` is provided to build the *builder image*, which can later be used to create a release.
 
-The default ```Dockerfile``` builds an image for ```Ubuntu 18.04```.  To build for other distributions, edit the ```Dockerfile``` and comment/uncomment the version you wish to build for.  An example is shown below:
+The default ```Dockerfile``` builds an image for ```Ubuntu 20.04```.  To build for other distributions, edit the ```Dockerfile``` and comment/uncomment the version you wish to build for.  An example is shown below:
 
 ```
 # Uncomment the distro that you wish to build for
