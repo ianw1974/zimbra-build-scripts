@@ -163,12 +163,8 @@ build_zimbra() {
     # or if it doesn't exist, then create it and set permissions
     if [ -d "${MAINDIR}/${PROJECTDIR}" ]
     then
-        echo "${PROJECTDIR} directory exists, cleaning up existing content..."
+        echo "${PROJECTDIR} directory exists, cleaning up .staging content..."
         rm -rf ${MAINDIR}/${PROJECTDIR}/.staging
-        for DIR in `ls ${MAINDIR}/${PROJECTDIR}`
-        do
-            rm -rf ${MAINDIR}/${PROJECTDIR}/$DIR
-        done
     else
         sudo mkdir ${MAINDIR}/${PROJECTDIR}
         sudo chown ${USERID}:${USERID} ${MAINDIR}/${PROJECTDIR}
@@ -225,12 +221,24 @@ build_zimbra() {
     fi
 }
 
+cleanup() {
+    echo "Cleaning up previous attempted builds..."
+    echo "${PROJECTDIR} directory exists, cleaning up .staging content..."
+    rm -rf ${MAINDIR}/${PROJECTDIR}/.staging
+    echo "Removing cloned Zimbra repositories..."
+    for DIR in `ls ${MAINDIR}/${PROJECTDIR}`
+    do
+        rm -rf ${MAINDIR}/${PROJECTDIR}/$DIR
+    done
+}
+
 # Help for using the script
 help() {
     echo -e "\n${CYAN}Zimbra Build Helper script!\n"
     echo -e "${YELLOW}Valid parameters are as follows:${NORMAL}\n"
     echo -e "  ${GREEN}--install-deps${NORMAL}\t - Installs required dependencies"
     echo -e "  ${GREEN}--build-zimbra${NORMAL}\t - Builds Zimbra"
+    echo -e "  ${GREEN}--cleanup${NORMAL}\t\t - Cleanup previous attempted builds"
     echo -e "  ${GREEN}--help${NORMAL}\t\t - Shows this help screen\n"
     echo -e "${CYAN}At the beginning of the script these variables can be changed if you want:${NORMAL}"
     echo -e "${YELLOW}\nMAINDIR=${NORMAL}/home/git\n${YELLOW}PROJECTDIR=${NORMAL}zimbra\n"
@@ -263,6 +271,9 @@ case ${PARMS} in
         ;;
     --build-zimbra)
         build_zimbra
+        ;;
+    --cleanup)
+        cleanup
         ;;
     --help)
         help
