@@ -175,7 +175,7 @@ build_zimbra() {
     fi
 
     # Start preparing for build
-    cp patches/config.build ${MAINDIR}/${PROJECTDIR}
+    cp config.build ${MAINDIR}/${PROJECTDIR}
     cp patches/zimbra-store.patch ${MAINDIR}/${PROJECTDIR}
     cp patches/zimbra-rocky.patch ${MAINDIR}/${PROJECTDIR}
     cp patches/zimbra-alma.patch ${MAINDIR}/${PROJECTDIR}
