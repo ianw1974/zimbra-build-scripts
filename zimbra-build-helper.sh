@@ -181,6 +181,7 @@ build_zimbra() {
     cp patches/zimbra-alma.patch ${MAINDIR}/${PROJECTDIR}
     cp patches/zimbra-repo.patch ${MAINDIR}/${PROJECTDIR}
     cp patches/jetty.xml.production.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/zimbra-utilfunc.sh.patch ${MAINDIR}/${PROJECTDIR}
     cd ${MAINDIR}/${PROJECTDIR}
 
     # Patch Zimbra 9 to remove onlyoffice
@@ -200,6 +201,9 @@ build_zimbra() {
     then
         sed -i 's/1000/90/g' ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Install/Util/utilfunc.sh
     fi
+
+    # Patch utilfunc.sh to install net-tools dependency
+    patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Install/Util/utilfunc.sh zimbra-utilfunc.sh.patch
 
     # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist else build will fail
     patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
