@@ -122,7 +122,8 @@ oel8_pkg_install() {
     sudo dnf group install -y "Development Tools"
     sudo dnf config-manager --set-enabled ol8_codeready_builder
     sudo dnf module enable -y javapackages-tools
-    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
+    sudo dnf install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel
+    sudo dnf install -y gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
 }
 
 # Fixes ant ant-lib dependency problem between packages and modules
