@@ -2,8 +2,8 @@
 #ARG RELEASE=almalinux:8.8
 #ARG RELEASE=oraclelinux:8.8
 #ARG RELEASE=rockylinux:8.8
-ARG RELEASE=ubuntu:18.04
-#ARG RELEASE=ubuntu:20.04
+#ARG RELEASE=ubuntu:18.04
+ARG RELEASE=ubuntu:20.04
 
 # DO NOT EDIT BELOW THIS LINE
 
