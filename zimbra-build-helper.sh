@@ -195,6 +195,7 @@ build_zimbra() {
     # Remove hostedlogin.jsp
     git clone https://github.com/zimbra/zm-web-client
     rm -f zm-web-client/WebRoot/public/hostedlogin.jsp
+    rm -f zm-web-client/WebRoot/public/Docs.jsp
 
     # Set repositories to use 90 instead of 1000
     if [ "${ZIMBRA_VER}" == "9.0.0" ]
