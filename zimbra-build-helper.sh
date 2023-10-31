@@ -128,7 +128,7 @@ oel8_pkg_install() {
 
 # Fixes ant ant-lib dependency problem between packages and modules
 is_ant_excluded() {
-    IS_ANT_EXCLUDE=`cat /etc/dnf/dnf.conf | grep -c "exclude=ant ant-lib"`
+    IS_ANT_EXCLUDE=`grep -c "exclude=ant ant-lib" /etc/dnf/dnf.conf`
     if [ ${IS_ANT_EXCLUDE} = 0 ]
     then
         sudo echo "exclude=ant ant-lib" >> /etc/dnf/dnf.conf
@@ -169,6 +169,32 @@ build_zimbra() {
         sudo mkdir ${MAINDIR}/${PROJECTDIR}
         sudo chown ${USERID}:${USERID} ${MAINDIR}/${PROJECTDIR}
     fi
+
+    # Get current year and month number
+    YEAR=`date '+%y'`
+    MONTH=`date '+%m'`
+
+    # Set quarter based on month number
+    if [ ${MONTH} -ge 01 ] && [ ${MONTH} -le 03 ]
+    then
+        QUARTER=01
+    elif [ ${MONTH} -ge 04 ] && [ ${MONTH} -le 06 ]
+    then
+        QUARTER=02
+    elif [ ${MONTH} -ge 07 ] && [ ${MONTH} -le 09 ]
+    then
+        QUARTER=03
+    elif [ ${MONTH} -ge 10 ] && [ ${MONTH} -le 12 ]
+    then
+        QUARTER=04
+    fi
+
+    # Concatenate quarter and year into BUILD_NO
+    NEW_BUILD_NO=${QUARTER}${YEAR}
+
+    # Update BUILD_NO in config.build file for Zimbra
+    CURRENT_BUILD_NO=`grep BUILD_NO config.build | awk '{print $3}'`
+    sed -i "s/${CURRENT_BUILD_NO}/${NEW_BUILD_NO}/" config.build
 
     # Start preparing for build
     cp config.build ${MAINDIR}/${PROJECTDIR}
