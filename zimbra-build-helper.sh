@@ -3,7 +3,7 @@
 ##################################
 # Zimbra Build Helper Script     #
 # Prepared By: Ian Walker        #
-# Version: 1.1.3                 #
+# Version: 1.1.4                 #
 #                                #
 # Supports:                      #
 #     AlmaLinux 8                #
