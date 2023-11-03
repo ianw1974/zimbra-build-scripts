@@ -214,7 +214,7 @@ build_zimbra() {
     fi
 
     # Clone zm-build repository
-    git clone -b develop https://github.com/zimbra/zm-build
+    git clone https://github.com/zimbra/zm-build
     cp config.build ${MAINDIR}/${PROJECTDIR}/zm-build
 
     # Remove hostedlogin.jsp
