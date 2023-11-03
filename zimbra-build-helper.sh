@@ -19,7 +19,6 @@
 #############
 MAINDIR=/home/git
 PROJECTDIR=zimbra
-ZM_BRANCH_TAG=develop
 
 #########################################
 # DON"T EDIT ANYTHING BELOW THESE LINES #
@@ -215,7 +214,7 @@ build_zimbra() {
     fi
 
     # Clone zm-build repository
-    git clone -b ${ZM_BRANCH_TAG} https://github.com/zimbra/zm-build
+    git clone -b develop https://github.com/zimbra/zm-build
     cp config.build ${MAINDIR}/${PROJECTDIR}/zm-build
 
     # Remove hostedlogin.jsp
