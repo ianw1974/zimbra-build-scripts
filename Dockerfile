@@ -30,6 +30,9 @@ RUN if [ -f "/usr/bin/apt-get" ]; then DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC
 # Install dependencies
 RUN ./zimbra-build-helper.sh --install-deps
 
+# Setup mandatory build environment
+RUN mkdir -p /root/.ivy2/cache
+
 # Volume to retrieve builds
 VOLUME /home/git/zimbra/BUILDS/
 
