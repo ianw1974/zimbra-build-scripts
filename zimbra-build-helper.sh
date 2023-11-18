@@ -232,6 +232,9 @@ build_zimbra() {
     # Patch get_plat_tag.sh to enable support for additional distros
     patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
 
+    # Fix for certain situation when building using CI/CD
+    mkdir -p ~/.ivy2/cache
+
     # Change to build directory and build Zimbra
     cd ${MAINDIR}/${PROJECTDIR}/zm-build
     ./build.pl --ant-options -DskipTests=true
