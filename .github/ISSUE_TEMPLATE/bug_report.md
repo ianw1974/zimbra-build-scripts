@@ -1,4 +1,4 @@
-**Please do not open issues relating to Zimbra itself.  Any issues opened here should ONLY be for issues relating to the build scripts that I provide and nothing more.  Any other issues will be closed autoomatically.**
+**Please do not open issues relating to Zimbra itself or the operating system.  Any issues opened here should ONLY be for issues relating to the build scripts that I provide and nothing more.  You should be analysing output and error messages yourself before posting here.  Any other issues will be closed automatically.**
 
 ---
 name: Bug report
