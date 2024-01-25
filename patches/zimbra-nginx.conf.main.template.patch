@@ -1,0 +1,10 @@
+--- zm-nginx-conf/conf/nginx/nginx.conf.main.template   2024-01-25 10:19:25.280254681 +0100
++++ nginx.conf.main.template    2024-01-25 10:24:56.289479579 +0100
+@@ -1,3 +1,7 @@
++# change UID/GID to zimbra/zimbra upon startup
++# 
++user ${main.user} ${main.group};
++
+ # number of worker processes to start 
+ # multiply this by worker_connections to get the maximum number of connections 
+ # that can be simultaneously handled by nginx (the product should not exceed
