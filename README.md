@@ -13,7 +13,7 @@ The script created here are based on the zm-build documentation, and are to help
 * Oracle Enterprise Linux 8
 * Red Hat Enterprise Linux 7/8
 * Rocky Linux 8
-* Ubuntu 18.04/20.04
+* Ubuntu 20.04
 
 There is also a pre-configured ```config.build``` which will build ```Zimbra 9.0.0 OSE/FOSS```
 
@@ -134,7 +134,7 @@ The script will automatically clone https://github.com/zimbra/zm-build so you do
 
 After the patch has been applied, it builds Zimbra.
 
-At the end, you will find the created Zimbra archive file under ```/home/git/zimbra/BUILDS/UBUNTU18_64-KEPLER-900-20201013092939-FOSS-0001/zcs-9.0.0_GA_1.UBUNTU18_64.20201013092939.tgz``` if building for Ubuntu 18.04.  The directory name and archive file name will vary if building for different distributions.
+At the end, you will find the created Zimbra archive file under ```/home/git/zimbra/BUILDS/UBUNTU20_64-KEPLER-900-20201013092939-FOSS-0001/zcs-9.0.0_GA_1.UBUNTU20_64.20201013092939.tgz``` if building for Ubuntu 20.04.  The directory name and archive file name will vary if building for different distributions.
 
 You can then unpack this archive file and install/upgrade Zimbra in the usual manner.
 
@@ -146,23 +146,23 @@ The default ```Dockerfile``` builds an image for ```Ubuntu 20.04```.  To build f
 
 ```
 # Uncomment the distro that you wish to build for
-#ARG RELEASE=almalinux:8.6
-#ARG RELEASE=oraclelinux:8.6
-#ARG RELEASE=rockylinux:8.6
-ARG RELEASE=ubuntu:18.04
+#ARG RELEASE=almalinux:8.9
+#ARG RELEASE=oraclelinux:8.9
+#ARG RELEASE=rockylinux:8.9
+ARG RELEASE=ubuntu:20.04
 ```
 
 for example to build for Rocky Linux 8.6 we comment the Ubuntu line, and uncomment the Rocky Linux line, so it looks like this:
 
 ```
 # Uncomment the distro that you wish to build for
-#ARG RELEASE=almalinux:8.6
-#ARG RELEASE=oraclelinux:8.6
-ARG RELEASE=rockylinux:8.6
-#ARG RELEASE=ubuntu:18.04
+#ARG RELEASE=almalinux:8.9
+#ARG RELEASE=oraclelinux:8.9
+ARG RELEASE=rockylinux:8.9
+#ARG RELEASE=ubuntu:20.04
 ```
 
-Build support for CentOS is excluded due to it effectively being EOL.  RHEL is excluded due to requiring subscriptions for enabling repositories - this makes things difficult for the build process.  It may be offered in the future.  Ubuntu 16.04 is excluded due to it being EOL.
+Build support for CentOS is excluded due to it effectively being EOL.  RHEL is excluded due to requiring subscriptions for enabling repositories - this makes things difficult for the build process.  It may be offered in the future.  Ubuntu 16.04 and 18.04 are excluded due to it being EOL.
 
 Just like when building normally, an SSH key is required to be uploaded to your account.  With the docker/podman commands, we are mounting the ```/root/.ssh``` directory to the docker/podman container - therefore you have to make sure that your SSH key has been generated, uploaded to your GitHub account and placed within this directory.  If not, then the build process within docker/podman will fail.  Follow the steps in the *Preparation* section at the beginning of this README.
 
