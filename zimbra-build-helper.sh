@@ -204,6 +204,7 @@ build_zimbra() {
     cp patches/zimbra-jetty.xml.production.patch ${MAINDIR}/${PROJECTDIR}
     cp patches/zimbra-nginx.conf.main.template.patch ${MAINDIR}/${PROJECTDIR}
     cp patches/zimbra-utilfunc.sh.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/zimbra-aspell-httpd.conf.patch ${MAINDIR}/${PROJECTDIR}
     cd ${MAINDIR}/${PROJECTDIR}
 
     # Patch Zimbra 9 to remove onlyoffice and fix nginx config
@@ -214,6 +215,14 @@ build_zimbra() {
         git clone https://github.com/zimbra/zm-nginx-conf
         patch ${MAINDIR}/${PROJECTDIR}/zm-jetty-conf/conf/jetty/jetty.xml.production zimbra-jetty.xml.production.patch
         patch ${MAINDIR}/${PROJECTDIR}/zm-nginx-conf/conf/nginx/nginx.conf.main.template zimbra-nginx.conf.main.template.patch
+    fi
+
+    # Patch Zimbra to remove libphp.so from zm-aspell/conf/httpd.conf for Zimbra 9.0.0 and Zimbra 10.0.x versions
+    # as they do not include PHP.
+    if [ "${ZIMBRA_VER}" == "9.0.0" ] || [[ "${ZIMBRA_VER}" == "10.0"* ]]
+    then
+        git clone https://github.com/zimbra/zm-aspell
+        patch ${MAINDIR}/${PROJECTDIR}/zm-aspell/conf/httpd.conf zimbra-aspell-httpd.conf.patch
     fi
 
     # Clone zm-build repository
