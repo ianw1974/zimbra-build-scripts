@@ -204,7 +204,7 @@ build_zimbra() {
     cp patches/zimbra-jetty.xml.production.patch ${MAINDIR}/${PROJECTDIR}
     cp patches/zimbra-nginx.conf.main.template.patch ${MAINDIR}/${PROJECTDIR}
     cp patches/zimbra-utilfunc.sh.patch ${MAINDIR}/${PROJECTDIR}
-    cp patches/zimbra-aspell-httpd.conf.patch ${MAINDIR/${PROJECTDIR}
+    cp patches/zimbra-aspell-httpd.conf.patch ${MAINDIR}/${PROJECTDIR}
     cd ${MAINDIR}/${PROJECTDIR}
 
     # Patch Zimbra 9 to remove onlyoffice and fix nginx config
