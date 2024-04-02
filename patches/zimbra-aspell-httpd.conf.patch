@@ -1,0 +1,11 @@
+--- zm-aspell/conf/httpd.conf	2024-04-02 15:53:01.039306751 +0200
++++ httpd.conf	2024-04-02 15:59:29.579428927 +0200
+@@ -145,7 +145,7 @@
+ LoadModule alias_module /opt/zimbra/common/lib/apache2/modules/mod_alias.so
+ #LoadModule rewrite_module /opt/zimbra/common/lib/apache2/modules/mod_rewrite.so
+ LoadModule mpm_event_module /opt/zimbra/common/lib/apache2/modules/mod_mpm_event.so
+-LoadModule php_module        /opt/zimbra/common/lib/apache2/modules/libphp.so
++#LoadModule php_module        /opt/zimbra/common/lib/apache2/modules/libphp.so
+ 
+ <IfModule unixd_module>
+ #
