@@ -53,7 +53,7 @@ install_dependencies() {
         DISTRIB_RELEASE=`lsb_release -r | awk '{print $2}'`
 
         # Check if running supported version and install dependencies or inform user of unsupported version and exit
-        if [ ${DISTRIB_RELEASE} == "20.04" ] || [ ${DISTRIB_RELEASE} == "24.04" ]
+        if [ ${DISTRIB_RELEASE} == "20.04" ] || [ ${DISTRIB_RELEASE} == "22.04" ]
         then
             deb_pkg_install
         else
