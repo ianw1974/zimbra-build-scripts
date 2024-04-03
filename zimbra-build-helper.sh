@@ -39,7 +39,14 @@ install_dependencies() {
     else
         if [ -f "/etc/redhat-release" ]
         then
-            sudo yum install -y redhat-lsb
+            EL_VER=`grep VERSION_ID /etc/os-release | cut -f2 -d "=" | sed 's/"//g'`
+            if [[ "${EL_VER}" == "9"* ]]
+            then
+                sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+                sudo dnf install -y lsb_release
+            else
+                sudo yum install -y redhat-lsb
+            fi
         else
             sudo apt-get install -y lsb-release
         fi
@@ -47,34 +54,37 @@ install_dependencies() {
     fi
 
     # Start installing dependencies
-    if [ ${DISTRIB_ID} == "Ubuntu" ]
+    if [ "${DISTRIB_ID}" == "Ubuntu" ]
     then
         # Get release information
         DISTRIB_RELEASE=`lsb_release -r | awk '{print $2}'`
 
         # Check if running supported version and install dependencies or inform user of unsupported version and exit
-        if [ ${DISTRIB_RELEASE} == "20.04" ] || [ ${DISTRIB_RELEASE} == "22.04" ]
+        if [ "${DISTRIB_RELEASE}" == "20.04" ] || [ "${DISTRIB_RELEASE}" == "22.04" ]
         then
             deb_pkg_install
         else
             echo "You are running an unsupported Ubuntu release!"
             exit 1
         fi
-    elif [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "OracleServer" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ] || [ ${DISTRIB_ID} == "RedHatEnterprise" ] || [ ${DISTRIB_ID} == "Rocky" ] || [ ${DISTRIB_ID} == "AlmaLinux" ]
+    elif [ "${DISTRIB_ID}" == "CentOS" ] || [ "${DISTRIB_ID}" == "OracleServer" ] || [ "${DISTRIB_ID}" == "RedHatEnterpriseServer" ] || [ "${DISTRIB_ID}" == "RedHatEnterprise" ] || [ "${DISTRIB_ID}" == "Rocky" ] || [ "${DISTRIB_ID}" == "AlmaLinux" ]
     then
         # Get release information
         DISTRIB_RELEASE=`lsb_release -r | awk '{print $2}' | cut -f1 -d "."`
 
         # Check if running supported version and install dependencies or inform user of unsupported version and exit
-        if [ ${DISTRIB_RELEASE} == "7" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterpriseServer" ]
+        if [ "${DISTRIB_RELEASE}" == "7" ] && [[ "${DISTRIB_ID}" == "CentOS" || "${DISTRIB_ID}" == "RedHatEnterpriseServer" ]]
         then
             el7_pkg_install
-        elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "CentOS" ] || [ ${DISTRIB_ID} == "RedHatEnterprise" ] || [ ${DISTRIB_ID} == "Rocky" ] || [ ${DISTRIB_ID} == "AlmaLinux" ]
+        elif [ "${DISTRIB_RELEASE}" == "8" ] && [[ "${DISTRIB_ID}" == "CentOS" || "${DISTRIB_ID}" == "RedHatEnterprise" || "${DISTRIB_ID}" == "Rocky" || "${DISTRIB_ID}" == "AlmaLinux" ]]
         then
             el8_pkg_install
             is_ant_excluded
+        elif [ "${DISTRIB_RELEASE}" == "9" ] && [[ "${DISTRIB_ID}" == "CentOS" || "${DISTRIB_ID}" == "RedHatEnterprise" || "${DISTRIB_ID}" == "Rocky" || "${DISTRIB_ID}" == "AlmaLinux" ]]
+        then
+            el9_pkg_install
         # Check if running Oracle Linux
-        elif [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "OracleServer" ]
+        elif [ "${DISTRIB_RELEASE}" == "8" ] && [ "${DISTRIB_ID}" == "OracleServer" ]
         then
             oel8_pkg_install
         else
@@ -104,7 +114,7 @@ el7_pkg_install() {
 
 # Installs dependencies for EL8
 el8_pkg_install() {
-    if [ ${DISTRIB_RELEASE} == "8" ] && [ ${DISTRIB_ID} == "RedHatEnterprise" ]
+    if [ "${DISTRIB_RELEASE}" == "8" ] && [ "${DISTRIB_ID}" == "RedHatEnterprise" ]
     then
         sudo subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
     else
@@ -113,6 +123,20 @@ el8_pkg_install() {
     fi
     sudo dnf group install -y "Development Tools"
     sudo dnf module enable -y javapackages-tools
+    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
+}
+
+# Installs dependencies for EL9
+el9_pkg_install() {
+    if [ "${DISTRIB_RELEASE}" == "9" ] && [ "${DISTRIB_ID}" == "RedHatEnterprise" ]
+    then
+        sudo subscription-manager repos --enable codeready-builder-for-rhel-9-x86_64-rpms
+    else
+        sudo dnf install -y dnf-plugins-core
+        sudo dnf config-manager --set-enabled crb
+    fi
+    sudo dnf group install -y "Development Tools"
+    sudo dnf install -y javapackages-tools
     sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
 }
 
