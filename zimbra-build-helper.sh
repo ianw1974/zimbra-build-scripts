@@ -247,11 +247,11 @@ build_zimbra() {
 
     # Patch Zimbra to remove libphp.so from zm-aspell/conf/httpd.conf for Zimbra 9.0.0 and Zimbra 10.0.x versions
     # as they do not include PHP.
-    if [ "${ZIMBRA_VER}" == "9.0.0" ] || [[ "${ZIMBRA_VER}" == "10.0"* ]]
-    then
-        git clone https://github.com/zimbra/zm-aspell
-        patch ${MAINDIR}/${PROJECTDIR}/zm-aspell/conf/httpd.conf zimbra-aspell-httpd.conf.patch
-    fi
+    #if [ "${ZIMBRA_VER}" == "9.0.0" ] || [[ "${ZIMBRA_VER}" == "10.0"* ]]
+    #then
+    #    git clone https://github.com/zimbra/zm-aspell
+    #    patch ${MAINDIR}/${PROJECTDIR}/zm-aspell/conf/httpd.conf zimbra-aspell-httpd.conf.patch
+    #fi
 
     # Clone zm-build repository
     git clone https://github.com/zimbra/zm-build
