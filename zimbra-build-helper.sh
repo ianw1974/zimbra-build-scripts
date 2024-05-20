@@ -1,18 +1,17 @@
 #!/bin/bash
 #
-##################################
-# Zimbra Build Helper Script     #
-# Prepared By: Ian Walker        #
-# Version: 1.1.8                 #
-#                                #
-# Supports:                      #
-#     AlmaLinux 8                #
-#     CentOS 7/8                 #
-#     Oracle Linux 8             #
-#     RHEL Enterprise Server 7/8 #
-#     Rocky Linux 8              #
-#     Ubuntu 20.04               #
-##################################
+################################
+# Zimbra Build Helper Script   #
+# Prepared By: Ian Walker      #
+# Version: 1.1.9               #
+#                              #
+# Supports:                    #
+#     AlmaLinux 8              #
+#     Oracle Linux 8           #
+#     RHEL Enterprise Server 8 #
+#     Rocky Linux 8            #
+#     Ubuntu 20.04             #
+################################
 
 #############
 # Variables #
@@ -25,7 +24,7 @@ PROJECTDIR=zimbra
 #########################################
 
 # Supported distros variable
-DISTROS="AlmaLinux 8, CentOS 7/8, Oracle Linux 8, RHEL 7/8, Rocky Linux 8, Ubuntu 20.04"
+DISTROS="AlmaLinux 8, Oracle Linux 8, RHEL 8, Rocky Linux 8, Ubuntu 20.04"
 
 #############
 # Functions #
@@ -73,10 +72,7 @@ install_dependencies() {
         DISTRIB_RELEASE=`lsb_release -r | awk '{print $2}' | cut -f1 -d "."`
 
         # Check if running supported version and install dependencies or inform user of unsupported version and exit
-        if [ "${DISTRIB_RELEASE}" == "7" ] && [[ "${DISTRIB_ID}" == "CentOS" || "${DISTRIB_ID}" == "RedHatEnterpriseServer" ]]
-        then
-            el7_pkg_install
-        elif [ "${DISTRIB_RELEASE}" == "8" ] && [[ "${DISTRIB_ID}" == "CentOS" || "${DISTRIB_ID}" == "RedHatEnterprise" || "${DISTRIB_ID}" == "Rocky" || "${DISTRIB_ID}" == "AlmaLinux" ]]
+        if [ "${DISTRIB_RELEASE}" == "8" ] && [[ "${DISTRIB_ID}" == "CentOS" || "${DISTRIB_ID}" == "RedHatEnterprise" || "${DISTRIB_ID}" == "Rocky" || "${DISTRIB_ID}" == "AlmaLinux" ]]
         then
             el8_pkg_install
             is_ant_excluded
@@ -101,15 +97,6 @@ install_dependencies() {
 # Installs dependencies for Ubuntu
 deb_pkg_install() {
     sudo apt-get install -y software-properties-common openjdk-8-jdk ant ant-optional ant-contrib ruby git maven build-essential rsync wget debhelper
-}
-
-# Installs dependencies for EL7
-el7_pkg_install() {
-    sudo yum groupinstall -y 'Development Tools'
-    sudo subscription-manager repos --enable rhel-7-server-extras-rpms
-    sudo subscription-manager repos --enable rhel-7-server-supplementary-rpms
-    sudo subscription-manager repos --enable rhel-7-server-optional-rpms
-    sudo yum install -y java-1.8.0-openjdk ant ant-junit ruby git maven cpan wget perl-IPC-Cmd rpm-build createrepo
 }
 
 # Installs dependencies for EL8
