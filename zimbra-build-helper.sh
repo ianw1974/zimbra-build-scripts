@@ -10,7 +10,7 @@
 #     Oracle Linux 8           #
 #     RHEL Enterprise Server 8 #
 #     Rocky Linux 8            #
-#     Ubuntu 20.04             #
+#     Ubuntu 20.04/22.04       #
 ################################
 
 #############
