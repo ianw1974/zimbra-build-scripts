@@ -4,6 +4,7 @@
 #ARG RELEASE=rockylinux:8.9
 #ARG RELEASE=ubuntu:18.04
 ARG RELEASE=ubuntu:20.04
+#ARG RELEASE=ubuntu:22.04
 
 # DO NOT EDIT BELOW THIS LINE
 
