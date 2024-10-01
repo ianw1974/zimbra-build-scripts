@@ -3,14 +3,14 @@
 ################################
 # Zimbra Build Helper Script   #
 # Prepared By: Ian Walker      #
-# Version: 1.1.9               #
+# Version: 1.2.0               #
 #                              #
 # Supports:                    #
 #     AlmaLinux 8              #
 #     Oracle Linux 8           #
 #     RHEL Enterprise Server 8 #
 #     Rocky Linux 8            #
-#     Ubuntu 20.04             #
+#     Ubuntu 20.04/22.04       #
 ################################
 
 #############
@@ -24,7 +24,7 @@ PROJECTDIR=zimbra
 #########################################
 
 # Supported distros variable
-DISTROS="AlmaLinux 8, Oracle Linux 8, RHEL 8, Rocky Linux 8, Ubuntu 20.04"
+DISTROS="AlmaLinux 8, Oracle Linux 8, RHEL 8, Rocky Linux 8, Ubuntu 20.04, Ubuntu 22.04"
 
 #############
 # Functions #

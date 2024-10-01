@@ -13,7 +13,7 @@ The script created here are based on the zm-build documentation, and are to help
 * Oracle Enterprise Linux 8
 * Red Hat Enterprise Linux 7/8
 * Rocky Linux 8
-* Ubuntu 20.04
+* Ubuntu 20.04 / 22.04 (Ubuntu 22.04 support only for Zimbra 10.1.0 and higher)
 
 There is also a pre-configured ```config.build``` which will build ```Zimbra 9.0.0 OSE/FOSS```
 
