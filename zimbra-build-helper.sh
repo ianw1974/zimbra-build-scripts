@@ -124,7 +124,7 @@ el9_pkg_install() {
     fi
     sudo dnf group install -y "Development Tools"
     sudo dnf install -y javapackages-tools
-    sudo dnf install -y java-11-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
+    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
 }
 
 # Installs dependencies for OEL8
