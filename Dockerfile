@@ -1,8 +1,8 @@
 # Uncomment the distro that you wish to build for
-#ARG RELEASE=almalinux:8.9
-#ARG RELEASE=oraclelinux:8.8
-#ARG RELEASE=rockylinux:8.9
-#ARG RELEASE=ubuntu:18.04
+#ARG RELEASE=almalinux:8.10
+#ARG RELEASE=oraclelinux:8.10
+#ARG RELEASE=rockylinux/rockylinux:8.10
+#ARG RELEASE=rockylinux/rockylinux:9.4
 ARG RELEASE=ubuntu:20.04
 #ARG RELEASE=ubuntu:22.04
 
