@@ -115,20 +115,16 @@ el8_pkg_install() {
 
 # Installs dependencies for EL9
 el9_pkg_install() {
-    echo -e "\nThis function is not ready/supported yet!"
-    echo -e "It requires Zimbra supporting EL9 distros first!\n"
-    exit 1
-
-    #if [ "${DISTRIB_RELEASE}" == "9" ] && [ "${DISTRIB_ID}" == "RedHatEnterprise" ]
-    #then
-    #    sudo subscription-manager repos --enable codeready-builder-for-rhel-9-x86_64-rpms
-    #else
-    #    sudo dnf install -y dnf-plugins-core
-    #    sudo dnf config-manager --set-enabled crb
-    #fi
-    #sudo dnf group install -y "Development Tools"
-    #sudo dnf install -y javapackages-tools
-    #sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
+    if [ "${DISTRIB_RELEASE}" == "9" ] && [ "${DISTRIB_ID}" == "RedHatEnterprise" ]
+    then
+        sudo subscription-manager repos --enable codeready-builder-for-rhel-9-x86_64-rpms
+    else
+        sudo dnf install -y dnf-plugins-core
+        sudo dnf config-manager --set-enabled crb
+    fi
+    sudo dnf group install -y "Development Tools"
+    sudo dnf install -y javapackages-tools
+    sudo dnf install -y java-11-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
 }
 
 # Installs dependencies for OEL8
