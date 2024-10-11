@@ -24,7 +24,7 @@ PROJECTDIR=zimbra
 #########################################
 
 # Supported distros variable
-DISTROS="AlmaLinux 8, Oracle Linux 8, RHEL 8, Rocky Linux 8, Ubuntu 20.04, Ubuntu 22.04"
+DISTROS="AlmaLinux 8/9, Oracle Linux 8, RHEL 8/9, Rocky Linux 8/9, Ubuntu 20.04, Ubuntu 22.04"
 
 #############
 # Functions #
