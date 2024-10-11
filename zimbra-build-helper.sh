@@ -1,17 +1,17 @@
 #!/bin/bash
 #
-################################
-# Zimbra Build Helper Script   #
-# Prepared By: Ian Walker      #
-# Version: 1.2.0               #
-#                              #
-# Supports:                    #
-#     AlmaLinux 8              #
-#     Oracle Linux 8           #
-#     RHEL Enterprise Server 8 #
-#     Rocky Linux 8            #
-#     Ubuntu 20.04/22.04       #
-################################
+##############################
+# Zimbra Build Helper Script #
+# Prepared By: Ian Walker    #
+# Version: 1.2.0             #
+#                            #
+# Supports:                  #
+#     AlmaLinux 8/9          #
+#     Oracle Linux 8         #
+#     RHEL 8/9               #
+#     Rocky Linux 8/9        #
+#     Ubuntu 20.04/22.04     #
+##############################
 
 #############
 # Variables #
@@ -66,17 +66,17 @@ install_dependencies() {
             echo "You are running an unsupported Ubuntu release!"
             exit 1
         fi
-    elif [ "${DISTRIB_ID}" == "CentOS" ] || [ "${DISTRIB_ID}" == "OracleServer" ] || [ "${DISTRIB_ID}" == "RedHatEnterpriseServer" ] || [ "${DISTRIB_ID}" == "RedHatEnterprise" ] || [ "${DISTRIB_ID}" == "Rocky" ] || [ "${DISTRIB_ID}" == "AlmaLinux" ]
+    elif [ "${DISTRIB_ID}" == "OracleServer" ] || [ "${DISTRIB_ID}" == "RedHatEnterpriseServer" ] || [ "${DISTRIB_ID}" == "RedHatEnterprise" ] || [ "${DISTRIB_ID}" == "Rocky" ] || [ "${DISTRIB_ID}" == "AlmaLinux" ]
     then
         # Get release information
         DISTRIB_RELEASE=`lsb_release -r | awk '{print $2}' | cut -f1 -d "."`
 
         # Check if running supported version and install dependencies or inform user of unsupported version and exit
-        if [ "${DISTRIB_RELEASE}" == "8" ] && [[ "${DISTRIB_ID}" == "CentOS" || "${DISTRIB_ID}" == "RedHatEnterprise" || "${DISTRIB_ID}" == "Rocky" || "${DISTRIB_ID}" == "AlmaLinux" ]]
+        if [ "${DISTRIB_RELEASE}" == "8" ] && [[ "${DISTRIB_ID}" == "RedHatEnterprise" || "${DISTRIB_ID}" == "Rocky" || "${DISTRIB_ID}" == "AlmaLinux" ]]
         then
             el8_pkg_install
             is_ant_excluded
-        elif [ "${DISTRIB_RELEASE}" == "9" ] && [[ "${DISTRIB_ID}" == "CentOS" || "${DISTRIB_ID}" == "RedHatEnterprise" || "${DISTRIB_ID}" == "Rocky" || "${DISTRIB_ID}" == "AlmaLinux" ]]
+        elif [ "${DISTRIB_RELEASE}" == "9" ] && [[ "${DISTRIB_ID}" == "RedHatEnterprise" || "${DISTRIB_ID}" == "RockyLinux" || "${DISTRIB_ID}" == "AlmaLinux" ]]
         then
             el9_pkg_install
         # Check if running Oracle Linux
@@ -84,7 +84,7 @@ install_dependencies() {
         then
             oel8_pkg_install
         else
-            echo "You are running an unsupported AlmaLinux/CentOS/Oracle/RHEL/Rocky release!"
+            echo "You are running an unsupported AlmaLinux/Oracle/RHEL/Rocky release!"
             exit 1
         fi
     else
@@ -124,7 +124,8 @@ el9_pkg_install() {
     fi
     sudo dnf group install -y "Development Tools"
     sudo dnf install -y javapackages-tools
-    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
+    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven-openjdk8 cpan wget rpm-build createrepo rsync
+    sudo dnf remove -y java-11-openjdk java-11-openjdk-devel
 }
 
 # Installs dependencies for OEL8
