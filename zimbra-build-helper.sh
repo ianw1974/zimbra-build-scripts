@@ -66,7 +66,7 @@ install_dependencies() {
             echo "You are running an unsupported Ubuntu release!"
             exit 1
         fi
-    elif [ "${DISTRIB_ID}" == "OracleServer" ] || [ "${DISTRIB_ID}" == "RedHatEnterpriseServer" ] || [ "${DISTRIB_ID}" == "RedHatEnterprise" ] || [ "${DISTRIB_ID}" == "Rocky" ] || [ "${DISTRIB_ID}" == "AlmaLinux" ]
+    elif [ "${DISTRIB_ID}" == "OracleServer" ] || [ "${DISTRIB_ID}" == "RedHatEnterpriseServer" ] || [ "${DISTRIB_ID}" == "RedHatEnterprise" ] || [ "${DISTRIB_ID}" == "Rocky" ] || [ "${DISTRIB_ID}" == "RockyLinux" ] || [ "${DISTRIB_ID}" == "AlmaLinux" ]
     then
         # Get release information
         DISTRIB_RELEASE=`lsb_release -r | awk '{print $2}' | cut -f1 -d "."`
@@ -126,6 +126,7 @@ el9_pkg_install() {
     sudo dnf install -y javapackages-tools
     sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven-openjdk8 cpan wget rpm-build createrepo rsync
     sudo dnf remove -y java-11-openjdk java-11-openjdk-devel
+    sudo dnf remove -y java-17-openjdk java-17-openjdk-devel
 }
 
 # Installs dependencies for OEL8
