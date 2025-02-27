@@ -1,4 +1,4 @@
---- zm-build/rpmconf/Build/get_plat_tag_old.sh	2025-02-27 15:00:48.978321658 +0100
+--- zm-build/rpmconf/Build/get_plat_tag.sh	2025-02-27 15:00:48.978321658 +0100
 +++ get_plat_tag.sh	2025-02-27 15:00:01.285969824 +0100
 @@ -99,6 +99,18 @@
      exit 0
