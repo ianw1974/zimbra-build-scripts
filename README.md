@@ -8,11 +8,11 @@ Builds created with this build script can be found on my website [here](https://
 
 The script created here are based on the zm-build documentation, and are to help make things much easier for you.  The script automatically detect your distribution, installs dependencies, and builds Zimbra without you having to do anything else manually.  So far it supports the distributions below:
 
-* AlmaLinux 8
+* AlmaLinux 8/9
 * CentOS 7/8
 * Oracle Enterprise Linux 8
-* Red Hat Enterprise Linux 7/8
-* Rocky Linux 8
+* Red Hat Enterprise Linux 8/9
+* Rocky Linux 8/9
 * Ubuntu 20.04 / 22.04 (Ubuntu 22.04 support only for Zimbra 10.1.0 and higher)
 
 There is also a pre-configured ```config.build``` which will build ```Zimbra 9.0.0 OSE/FOSS```
