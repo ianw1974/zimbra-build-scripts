@@ -1,0 +1,14 @@
+--- zm-web-client/WebRoot/templates/mail/Message.template	2025-03-21 20:06:24.718765102 +0100
++++ Message.template	2025-03-21 20:13:44.461753895 +0100
+@@ -340,9 +340,9 @@
+ 				<a href="javascript:void(0);" id='${id}_dispImgs'>${link}</a></div>
+ 			<$ if (data.domain || data.email){ $>
+ 				<div><span>${alwaysText}</span>&nbsp; 
+-				<a href="javascript:void(0);" id='${id}_domain'>${domain}</a> 
++				<a href="javascript:void(0);" id='${id}_domain'><$= AjxStringUtil.htmlEncode(data.domain) $></a>
+ 				${or} 
+-				<a href="javascript:void(0);" id='${id}_email'>${email}</a></div>
++				<a href="javascript:void(0);" id='${id}_email'><$= AjxStringUtil.htmlEncode(data.email) $></a></div>
+ 			<$}$></td>
+ 			<td width='1%' style='padding:0 1em;'><div class="ImgClose" id='${id}_close'></div></td>
+ 		</tr></table>

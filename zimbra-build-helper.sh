@@ -218,6 +218,8 @@ build_zimbra() {
     cp patches/zimbra-nginx.conf.main.template.patch ${MAINDIR}/${PROJECTDIR}
     cp patches/zimbra-utilfunc.sh.patch ${MAINDIR}/${PROJECTDIR}
     cp patches/zimbra-aspell-httpd.conf.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/zm-web-client-Message.template.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/zm-web-client-ZmInviteMsgView.patch ${MAINDIR}/${PROJECTDIR}
     cd ${MAINDIR}/${PROJECTDIR}
 
     # Patch Zimbra 9 to remove onlyoffice and fix nginx config
@@ -247,6 +249,11 @@ build_zimbra() {
     then
         sed -i 's/1000/90/g' ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Install/Util/utilfunc.sh
     fi
+
+    # Patch zm-web-client to fix CVE-2025-27915
+    git clone https://github.com/zimbra/zm-web-client
+    patch ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/mail/view/ZmInviteMsgView.js zm-web-client-ZmInviteMsgView.patch
+    patch ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/templates/mail/Message.template zm-web-client-Message.template.patch
 
     # Patch utilfunc.sh to install net-tools dependency
     patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Install/Util/utilfunc.sh zimbra-utilfunc.sh.patch
