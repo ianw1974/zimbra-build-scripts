@@ -9,7 +9,6 @@ Builds created with this build script can be found on my website [here](https://
 The script created here are based on the zm-build documentation, and are to help make things much easier for you.  The script automatically detect your distribution, installs dependencies, and builds Zimbra without you having to do anything else manually.  So far it supports the distributions below:
 
 * AlmaLinux 8/9
-* CentOS 7/8
 * Oracle Enterprise Linux 8
 * Red Hat Enterprise Linux 8/9
 * Rocky Linux 8/9
@@ -162,7 +161,7 @@ ARG RELEASE=rockylinux:8.9
 #ARG RELEASE=ubuntu:20.04
 ```
 
-Build support for CentOS is excluded due to it effectively being EOL.  RHEL is excluded due to requiring subscriptions for enabling repositories - this makes things difficult for the build process.  It may be offered in the future.  Ubuntu 16.04 and 18.04 are excluded due to it being EOL.
+RHEL is excluded due to requiring subscriptions for enabling repositories - this makes things difficult for the build process.  It may be offered in the future.
 
 Just like when building normally, an SSH key is required to be uploaded to your account.  With the docker/podman commands, we are mounting the ```/root/.ssh``` directory to the docker/podman container - therefore you have to make sure that your SSH key has been generated, uploaded to your GitHub account and placed within this directory.  If not, then the build process within docker/podman will fail.  Follow the steps in the *Preparation* section at the beginning of this README.
 
