@@ -3,8 +3,7 @@
 #ARG RELEASE=oraclelinux:8.10
 #ARG RELEASE=rockylinux/rockylinux:8.10
 #ARG RELEASE=rockylinux/rockylinux:9.4
-ARG RELEASE=ubuntu:20.04
-#ARG RELEASE=ubuntu:22.04
+ARG RELEASE=ubuntu:22.04
 
 # DO NOT EDIT BELOW THIS LINE
 

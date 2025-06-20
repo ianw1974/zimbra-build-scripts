@@ -3,14 +3,14 @@
 ##############################
 # Zimbra Build Helper Script #
 # Prepared By: Ian Walker    #
-# Version: 1.2.2             #
+# Version: 1.2.3             #
 #                            #
 # Supports:                  #
 #     AlmaLinux 8/9          #
 #     Oracle Linux 8         #
 #     RHEL 8/9               #
 #     Rocky Linux 8/9        #
-#     Ubuntu 20.04/22.04     #
+#     Ubuntu 22.04           #
 ##############################
 
 #############
@@ -24,7 +24,7 @@ PROJECTDIR=zimbra
 #########################################
 
 # Supported distros variable
-DISTROS="AlmaLinux 8/9, Oracle Linux 8, RHEL 8/9, Rocky Linux 8/9, Ubuntu 20.04, Ubuntu 22.04"
+DISTROS="AlmaLinux 8/9, Oracle Linux 8, RHEL 8/9, Rocky Linux 8/9, Ubuntu 22.04"
 
 #############
 # Functions #
@@ -59,7 +59,7 @@ install_dependencies() {
         DISTRIB_RELEASE=`lsb_release -r | awk '{print $2}'`
 
         # Check if running supported version and install dependencies or inform user of unsupported version and exit
-        if [ "${DISTRIB_RELEASE}" == "20.04" ] || [ "${DISTRIB_RELEASE}" == "22.04" ]
+        if [ "${DISTRIB_RELEASE}" == "22.04" ] || [ "${DISTRIB_RELEASE}" == "24.04" ]
         then
             deb_pkg_install
         else
