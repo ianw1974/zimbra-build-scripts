@@ -12,7 +12,7 @@ The script created here are based on the zm-build documentation, and are to help
 * Oracle Enterprise Linux 8
 * Red Hat Enterprise Linux 8/9
 * Rocky Linux 8/9
-* Ubuntu 20.04 / 22.04 (Ubuntu 22.04 support only for Zimbra 10.1.0 and higher)
+* Ubuntu 22.04 (Ubuntu 22.04 support only for Zimbra 10.1.0 and higher)
 
 There is also a pre-configured ```config.build``` which will build ```Zimbra 9.0.0 OSE/FOSS```
 
@@ -52,7 +52,7 @@ ssh-keygen -t rsa -b 4096 -C "your_email@address"
 
 the email address needs to be the one used for your GitHub account.
 
-Make sure that there are no other versions of JRE/JDK installed on your build server as these will conflict with openjdk-8 which Zimbra uses.  For example on Ubuntu 18.04 by default some OpenJDK-11 packages are installed, so these needs to be removed prior to building.
+Make sure that there are no other versions of JRE/JDK installed on your build server as these will conflict with openjdk-8 which Zimbra uses.
 
 Now clone this repository:
 
@@ -133,7 +133,7 @@ The script will automatically clone https://github.com/zimbra/zm-build so you do
 
 After the patch has been applied, it builds Zimbra.
 
-At the end, you will find the created Zimbra archive file under ```/home/git/zimbra/BUILDS/UBUNTU20_64-KEPLER-900-20201013092939-FOSS-0001/zcs-9.0.0_GA_1.UBUNTU20_64.20201013092939.tgz``` if building for Ubuntu 20.04.  The directory name and archive file name will vary if building for different distributions.
+At the end, you will find the created Zimbra archive file under ```/home/git/zimbra/BUILDS/RHEL9_64-DAFFODIL-1016-20250403212754-FOSS-0225/zcs-10.1.6_GA_0225.RHEL9_64.20250403212754.tgz``` if building for RHEL9.  The directory name and archive file name will vary if building for different distributions.
 
 You can then unpack this archive file and install/upgrade Zimbra in the usual manner.
 
@@ -141,14 +141,14 @@ You can then unpack this archive file and install/upgrade Zimbra in the usual ma
 
 A ```Dockerfile``` is provided to build the *builder image*, which can later be used to create a release.
 
-The default ```Dockerfile``` builds an image for ```Ubuntu 20.04```.  To build for other distributions, edit the ```Dockerfile``` and comment/uncomment the version you wish to build for.  An example is shown below:
+The default ```Dockerfile``` builds an image for ```Ubuntu 22.04```.  To build for other distributions, edit the ```Dockerfile``` and comment/uncomment the version you wish to build for.  An example is shown below:
 
 ```
 # Uncomment the distro that you wish to build for
 #ARG RELEASE=almalinux:8.9
 #ARG RELEASE=oraclelinux:8.9
 #ARG RELEASE=rockylinux:8.9
-ARG RELEASE=ubuntu:20.04
+ARG RELEASE=ubuntu:22.04
 ```
 
 for example to build for Rocky Linux 8.6 we comment the Ubuntu line, and uncomment the Rocky Linux line, so it looks like this:
@@ -158,7 +158,7 @@ for example to build for Rocky Linux 8.6 we comment the Ubuntu line, and uncomme
 #ARG RELEASE=almalinux:8.9
 #ARG RELEASE=oraclelinux:8.9
 ARG RELEASE=rockylinux:8.9
-#ARG RELEASE=ubuntu:20.04
+#ARG RELEASE=ubuntu:22.04
 ```
 
 RHEL is excluded due to requiring subscriptions for enabling repositories - this makes things difficult for the build process.  It may be offered in the future.
