@@ -1,0 +1,11 @@
+--- zm-web-client/WebRoot/js/zimbraMail/voicemail/view/ZmCallListView.js	2025-04-03 21:27:53.872866748 +0200
++++ ZmCallListView.js	2025-07-04 21:35:53.367756694 +0200
+@@ -116,7 +116,7 @@
+ 		caller: this._getCallerHtml(call), 
+ 		duration: AjxDateUtil.computeDuration(call.duration),
+ 		date: AjxDateUtil.computeDateTimeString(call.date),
+-		location: location
++		location: AjxStringUtil.htmlEncode(location)
+ 	};
+ 	var html = AjxTemplate.expand("voicemail.Voicemail#CallTooltip", data);
+ 	return html;

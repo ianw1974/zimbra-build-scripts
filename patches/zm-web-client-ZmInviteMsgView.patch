@@ -1,16 +1,21 @@
---- zm-web-client/WebRoot/js/zimbraMail/mail/view/ZmInviteMsgView.js	2025-03-21 20:06:24.299759393 +0100
-+++ ZmInviteMsgView.js	2025-03-21 20:10:06.215783156 +0100
-@@ -530,11 +530,11 @@
- 	{
-         var from = this._msg.getAddress(AjxEmailAddress.FROM) && this._msg.getAddress(AjxEmailAddress.FROM).getAddress();
-         subs.counterInvMsg =  (!sentByAddr || sentByAddr == from) ?
--            AjxMessageFormat.format(ZmMsg.counterInviteMsg, [from]):AjxMessageFormat.format(ZmMsg.counterInviteMsgOnBehalfOf, [sentByAddr, from]);
-+            AjxMessageFormat.format(ZmMsg.counterInviteMsg, [from]):AjxMessageFormat.format(ZmMsg.counterInviteMsgOnBehalfOf, [AjxStringUtil.htmlEncode(sentByAddr), from]);
- 	}
- 	// Fix for bug: 88052 and 77237. Display cancellation banner to organizer or attendee
- 	else if (isInviteCancelled) {
--		var organizer = this._invite.getOrganizerName() || this._invite.getOrganizerEmail();
-+                var organizer = AjxStringUtil.htmlEncode(this._invite.getOrganizerName() || this._invite.getOrganizerEmail());
- 		subs.ptstMsg = AjxMessageFormat.format(ZmMsg.inviteMsgCancelled, organizer.split());
- 		subs.ptstIcon = ZmCalItem.getParticipationStatusIcon(ZmCalBaseItem.PSTATUS_DECLINED);
- 		subs.ptstClassName = "InviteStatusDecline";
+--- zm-web-client/WebRoot/js/zimbraMail/mail/view/ZmInviteMsgView.js	2025-07-04 21:47:37.424548473 +0200
++++ ZmInviteMsgView.js	2025-07-04 21:35:01.219253174 +0200
+@@ -544,12 +544,12 @@
+ 		var attendee = this._invite.getAttendees()[0];
+ 		var ptst = attendee && attendee.ptst;
+ 		if (ptst) {
+-            var names = [];
+-			var dispName = attendee.d || attendee.a;
+-            var sentBy = attendee.sentBy;
+-            var ptstStr = null;
+-            if (sentBy) names.push(attendee.sentBy);
+-            names.push(dispName);
++			var names = [];
++			var dispName = AjxStringUtil.htmlEncode(attendee.d || attendee.a);
++			var sentBy = AjxStringUtil.htmlEncode(attendee.sentBy);
++			var ptstStr = null;
++			if (sentBy) names.push(AjxStringUtil.htmlEncode(attendee.sentBy));
++			names.push(dispName);
+ 			subs.ptstIcon = ZmCalItem.getParticipationStatusIcon(ptst);
+ 			switch (ptst) {
+ 				case ZmCalBaseItem.PSTATUS_ACCEPT:
