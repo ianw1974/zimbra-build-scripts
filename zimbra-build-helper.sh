@@ -96,7 +96,7 @@ install_dependencies() {
 
 # Installs dependencies for Ubuntu
 deb_pkg_install() {
-    sudo apt-get install -y software-properties-common openjdk-8-jdk ant ant-optional ant-contrib ruby git maven build-essential rsync wget debhelper
+    sudo apt-get install -y software-properties-common openjdk-8-jdk ant ant-optional ant-contrib dos2unix ruby git maven build-essential rsync wget debhelper
 }
 
 # Installs dependencies for EL8
@@ -110,7 +110,7 @@ el8_pkg_install() {
     fi
     sudo dnf group install -y "Development Tools"
     sudo dnf module enable -y javapackages-tools
-    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
+    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit dos2unix ruby git maven cpan wget rpm-build createrepo rsync
 }
 
 # Installs dependencies for EL9
@@ -124,7 +124,7 @@ el9_pkg_install() {
     fi
     sudo dnf group install -y "Development Tools"
     sudo dnf install -y javapackages-tools
-    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven-openjdk8 cpan wget rpm-build createrepo rsync
+    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit dos2unix ruby git maven-openjdk8 cpan wget rpm-build createrepo rsync
     sudo dnf remove -y java-11-openjdk java-11-openjdk-devel
     sudo dnf remove -y java-17-openjdk java-17-openjdk-devel
 }
@@ -135,7 +135,7 @@ oel8_pkg_install() {
     sudo dnf config-manager --set-enabled ol8_codeready_builder
     sudo dnf module enable -y javapackages-tools
     sudo dnf install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel
-    sudo dnf install -y gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
+    sudo dnf install -y gcc-c++ ant-junit dos2unix ruby git maven cpan wget rpm-build createrepo rsync
 }
 
 # Fixes ant ant-lib dependency problem between packages and modules
@@ -254,6 +254,7 @@ build_zimbra() {
 
     # Patch zm-web-client with XSS fixes
     git clone https://github.com/zimbra/zm-web-client
+    dos2unix ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmQuickReminderDialog.js
     patch ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/mail/view/ZmInviteMsgView.js zm-web-client-ZmInviteMsgView.patch
     patch ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/voicemail/view/ZmCallListView.js zm-web-client-ZmCallListView.patch
     patch ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmQuickReminderDialog.js zm-web-client-ZmQuickReminderDialog.patch
