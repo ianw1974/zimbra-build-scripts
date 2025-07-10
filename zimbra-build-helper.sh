@@ -254,7 +254,7 @@ build_zimbra() {
 
     # Patch zm-web-client with XSS fixes
     git clone https://github.com/zimbra/zm-web-client
-    dos2unix ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmQuickReminderDialog.js
+    #dos2unix ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmQuickReminderDialog.js
     patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/mail/view/ZmInviteMsgView.js zm-web-client-ZmInviteMsgView.patch
     patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/voicemail/view/ZmCallListView.js zm-web-client-ZmCallListView.patch
     patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmQuickReminderDialog.js zm-web-client-ZmQuickReminderDialog.patch
