@@ -230,8 +230,8 @@ build_zimbra() {
     then
         git clone https://github.com/zimbra/zm-jetty-conf
         git clone https://github.com/zimbra/zm-nginx-conf
-        patch ${MAINDIR}/${PROJECTDIR}/zm-jetty-conf/conf/jetty/jetty.xml.production zimbra-jetty.xml.production.patch
-        patch ${MAINDIR}/${PROJECTDIR}/zm-nginx-conf/conf/nginx/nginx.conf.main.template zimbra-nginx.conf.main.template.patch
+        patch -l ${MAINDIR}/${PROJECTDIR}/zm-jetty-conf/conf/jetty/jetty.xml.production zimbra-jetty.xml.production.patch
+        patch -l ${MAINDIR}/${PROJECTDIR}/zm-nginx-conf/conf/nginx/nginx.conf.main.template zimbra-nginx.conf.main.template.patch
     fi
 
     # Patch Zimbra to remove libphp.so from zm-aspell/conf/httpd.conf for Zimbra 9.0.0 and Zimbra 10.0.x versions
@@ -239,7 +239,7 @@ build_zimbra() {
     #if [ "${ZIMBRA_VER}" == "9.0.0" ] || [[ "${ZIMBRA_VER}" == "10.0"* ]]
     #then
     #    git clone https://github.com/zimbra/zm-aspell
-    #    patch ${MAINDIR}/${PROJECTDIR}/zm-aspell/conf/httpd.conf zimbra-aspell-httpd.conf.patch
+    #    patch -l ${MAINDIR}/${PROJECTDIR}/zm-aspell/conf/httpd.conf zimbra-aspell-httpd.conf.patch
     #fi
 
     # Clone zm-build repository
@@ -255,19 +255,19 @@ build_zimbra() {
     # Patch zm-web-client with XSS fixes
     git clone https://github.com/zimbra/zm-web-client
     dos2unix ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmQuickReminderDialog.js
-    patch ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/mail/view/ZmInviteMsgView.js zm-web-client-ZmInviteMsgView.patch
-    patch ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/voicemail/view/ZmCallListView.js zm-web-client-ZmCallListView.patch
-    patch ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmQuickReminderDialog.js zm-web-client-ZmQuickReminderDialog.patch
-    patch ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmReminderDialog.js zm-web-client-ZmReminderDialog.patch
+    patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/mail/view/ZmInviteMsgView.js zm-web-client-ZmInviteMsgView.patch
+    patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/voicemail/view/ZmCallListView.js zm-web-client-ZmCallListView.patch
+    patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmQuickReminderDialog.js zm-web-client-ZmQuickReminderDialog.patch
+    patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmReminderDialog.js zm-web-client-ZmReminderDialog.patch
 
     # Patch utilfunc.sh to install net-tools dependency
-    patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Install/Util/utilfunc.sh zimbra-utilfunc.sh.patch
+    patch -l ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Install/Util/utilfunc.sh zimbra-utilfunc.sh.patch
 
     # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist else build will fail
-    patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
+    patch -l ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
 
     # Patch get_plat_tag.sh to enable support for additional distros
-    patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
+    patch -l ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
 
     # Fix for certain situation when building using CI/CD
     mkdir -p ~/.ivy2/cache
