@@ -253,12 +253,12 @@ build_zimbra() {
     fi
 
     # Patch zm-web-client with XSS fixes
-    git clone https://github.com/zimbra/zm-web-client
+    #git clone https://github.com/zimbra/zm-web-client
     #dos2unix ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmQuickReminderDialog.js
-    patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/mail/view/ZmInviteMsgView.js zm-web-client-ZmInviteMsgView.patch
-    patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/voicemail/view/ZmCallListView.js zm-web-client-ZmCallListView.patch
-    patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmQuickReminderDialog.js zm-web-client-ZmQuickReminderDialog.patch
-    patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmReminderDialog.js zm-web-client-ZmReminderDialog.patch
+    #patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/mail/view/ZmInviteMsgView.js zm-web-client-ZmInviteMsgView.patch
+    #patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/voicemail/view/ZmCallListView.js zm-web-client-ZmCallListView.patch
+    #patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmQuickReminderDialog.js zm-web-client-ZmQuickReminderDialog.patch
+    #patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmReminderDialog.js zm-web-client-ZmReminderDialog.patch
 
     # Patch utilfunc.sh to install net-tools dependency
     patch -l ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Install/Util/utilfunc.sh zimbra-utilfunc.sh.patch
