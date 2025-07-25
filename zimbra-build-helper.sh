@@ -3,7 +3,7 @@
 ##############################
 # Zimbra Build Helper Script #
 # Prepared By: Ian Walker    #
-# Version: 1.2.3             #
+# Version: 1.2.4             #
 #                            #
 # Supports:                  #
 #     AlmaLinux 8/9          #
@@ -96,7 +96,7 @@ install_dependencies() {
 
 # Installs dependencies for Ubuntu
 deb_pkg_install() {
-    sudo apt-get install -y software-properties-common openjdk-8-jdk ant ant-optional ant-contrib ruby git maven build-essential rsync wget debhelper
+    sudo apt-get install -y software-properties-common openjdk-8-jdk ant ant-optional ant-contrib dos2unix ruby git maven build-essential rsync wget debhelper
 }
 
 # Installs dependencies for EL8
@@ -110,7 +110,7 @@ el8_pkg_install() {
     fi
     sudo dnf group install -y "Development Tools"
     sudo dnf module enable -y javapackages-tools
-    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
+    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit dos2unix ruby git maven cpan wget rpm-build createrepo rsync
 }
 
 # Installs dependencies for EL9
@@ -124,7 +124,7 @@ el9_pkg_install() {
     fi
     sudo dnf group install -y "Development Tools"
     sudo dnf install -y javapackages-tools
-    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit ruby git maven-openjdk8 cpan wget rpm-build createrepo rsync
+    sudo dnf install -y java-1.8.0-openjdk gcc-c++ ant-junit dos2unix ruby git maven-openjdk8 cpan wget rpm-build createrepo rsync
     sudo dnf remove -y java-11-openjdk java-11-openjdk-devel
     sudo dnf remove -y java-17-openjdk java-17-openjdk-devel
 }
@@ -135,7 +135,7 @@ oel8_pkg_install() {
     sudo dnf config-manager --set-enabled ol8_codeready_builder
     sudo dnf module enable -y javapackages-tools
     sudo dnf install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel
-    sudo dnf install -y gcc-c++ ant-junit ruby git maven cpan wget rpm-build createrepo rsync
+    sudo dnf install -y gcc-c++ ant-junit dos2unix ruby git maven cpan wget rpm-build createrepo rsync
 }
 
 # Fixes ant ant-lib dependency problem between packages and modules
@@ -218,8 +218,10 @@ build_zimbra() {
     cp patches/zimbra-nginx.conf.main.template.patch ${MAINDIR}/${PROJECTDIR}
     cp patches/zimbra-utilfunc.sh.patch ${MAINDIR}/${PROJECTDIR}
     cp patches/zimbra-aspell-httpd.conf.patch ${MAINDIR}/${PROJECTDIR}
-    cp patches/zm-web-client-Message.template.patch ${MAINDIR}/${PROJECTDIR}
     cp patches/zm-web-client-ZmInviteMsgView.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/zm-web-client-ZmCallListView.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/zm-web-client-ZmQuickReminderDialog.patch ${MAINDIR}/${PROJECTDIR}
+    cp patches/zm-web-client-ZmReminderDialog.patch ${MAINDIR}/${PROJECTDIR}
     cd ${MAINDIR}/${PROJECTDIR}
 
     # Patch Zimbra 9 to remove onlyoffice and fix nginx config
@@ -228,8 +230,8 @@ build_zimbra() {
     then
         git clone https://github.com/zimbra/zm-jetty-conf
         git clone https://github.com/zimbra/zm-nginx-conf
-        patch ${MAINDIR}/${PROJECTDIR}/zm-jetty-conf/conf/jetty/jetty.xml.production zimbra-jetty.xml.production.patch
-        patch ${MAINDIR}/${PROJECTDIR}/zm-nginx-conf/conf/nginx/nginx.conf.main.template zimbra-nginx.conf.main.template.patch
+        patch -l ${MAINDIR}/${PROJECTDIR}/zm-jetty-conf/conf/jetty/jetty.xml.production zimbra-jetty.xml.production.patch
+        patch -l ${MAINDIR}/${PROJECTDIR}/zm-nginx-conf/conf/nginx/nginx.conf.main.template zimbra-nginx.conf.main.template.patch
     fi
 
     # Patch Zimbra to remove libphp.so from zm-aspell/conf/httpd.conf for Zimbra 9.0.0 and Zimbra 10.0.x versions
@@ -237,7 +239,7 @@ build_zimbra() {
     #if [ "${ZIMBRA_VER}" == "9.0.0" ] || [[ "${ZIMBRA_VER}" == "10.0"* ]]
     #then
     #    git clone https://github.com/zimbra/zm-aspell
-    #    patch ${MAINDIR}/${PROJECTDIR}/zm-aspell/conf/httpd.conf zimbra-aspell-httpd.conf.patch
+    #    patch -l ${MAINDIR}/${PROJECTDIR}/zm-aspell/conf/httpd.conf zimbra-aspell-httpd.conf.patch
     #fi
 
     # Clone zm-build repository
@@ -250,19 +252,22 @@ build_zimbra() {
         sed -i 's/1000/90/g' ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Install/Util/utilfunc.sh
     fi
 
-    # Patch zm-web-client to fix CVE-2025-27915
-    git clone https://github.com/zimbra/zm-web-client
-    patch ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/mail/view/ZmInviteMsgView.js zm-web-client-ZmInviteMsgView.patch
-    patch ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/templates/mail/Message.template zm-web-client-Message.template.patch
+    # Patch zm-web-client with XSS fixes
+    #git clone https://github.com/zimbra/zm-web-client
+    #dos2unix ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmQuickReminderDialog.js
+    #patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/mail/view/ZmInviteMsgView.js zm-web-client-ZmInviteMsgView.patch
+    #patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/voicemail/view/ZmCallListView.js zm-web-client-ZmCallListView.patch
+    #patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmQuickReminderDialog.js zm-web-client-ZmQuickReminderDialog.patch
+    #patch -l ${MAINDIR}/${PROJECTDIR}/zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmReminderDialog.js zm-web-client-ZmReminderDialog.patch
 
     # Patch utilfunc.sh to install net-tools dependency
-    patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Install/Util/utilfunc.sh zimbra-utilfunc.sh.patch
+    patch -l ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Install/Util/utilfunc.sh zimbra-utilfunc.sh.patch
 
     # Patch zimbra-store.sh to fix issue when convertd directory doesn't exist else build will fail
-    patch ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
+    patch -l ${MAINDIR}/${PROJECTDIR}/zm-build/instructions/bundling-scripts/zimbra-store.sh zimbra-store.patch
 
     # Patch get_plat_tag.sh to enable support for additional distros
-    patch ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
+    patch -l ${MAINDIR}/${PROJECTDIR}/zm-build/rpmconf/Build/get_plat_tag.sh zimbra-alma.patch
 
     # Fix for certain situation when building using CI/CD
     mkdir -p ~/.ivy2/cache

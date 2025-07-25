@@ -1,0 +1,11 @@
+--- zm-web-client/WebRoot/js/zimbraMail/calendar/view/ZmReminderDialog.js	2025-07-04 21:47:37.412548357 +0200
++++ ZmReminderDialog.js	2025-07-04 21:32:39.197881895 +0200
+@@ -446,7 +446,7 @@
+ 		accountName: (appCtxt.multiAccounts && calendar && calendar.getAccount().getDisplayName()),
+ 		location: (AjxStringUtil.htmlEncode(appt.getReminderLocation())),
+ 		apptIconHtml: (AjxImg.getImageHtml(appt.otherAttendees ? "ApptMeeting" : "Appointment")),
+-		organizer: appt.otherAtt ? appt.organizer : null,
++		organizer: appt.otherAtt ? AjxStringUtil.htmlEncode(appt.organizer) : null, // TODO: change appt.otherAtt to appt.otherAttendees
+ 		reminderName: (AjxStringUtil.htmlEncode(appt.getReminderName())),
+ 		durationText: (AjxStringUtil.trim(this._getDurationText(appt))),
+ 		deltaId: data.deltaId,
