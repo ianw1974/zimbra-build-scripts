@@ -162,6 +162,9 @@ build_zimbra() {
     # Get current userid - we need this if using sudo to fix directory permissions
     USERID=`echo ${USER}`
 
+    # Configure umask to ensure successful builds
+    umask 0022
+
     # Check if ${MAINDIR} exists, if not create it and set permissions
     if [ -d "${MAINDIR}" ]
     then
