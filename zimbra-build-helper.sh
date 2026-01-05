@@ -277,7 +277,7 @@ build_zimbra() {
 
     # Change to build directory and build Zimbra
     cd ${MAINDIR}/${PROJECTDIR}/zm-build
-    ./build.pl --ant-options -DskipTests=true
+    ENV_CACHE_CLEAR_FLAG=true ./build.pl --ant-options -DskipTests=true --ant-options -DskipCoverage=true --ant-options -DskipSonarScan=true --git-default-branch=develop
 
     # Inform where archive can be found or error message if problem with build
     if [ $? == 0 ]
