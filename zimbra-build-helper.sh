@@ -97,6 +97,7 @@ install_dependencies() {
 # Installs dependencies for Ubuntu
 deb_pkg_install() {
     sudo apt-get install -y software-properties-common openjdk-8-jdk ant ant-optional ant-contrib dos2unix ruby git maven build-essential rsync wget debhelper
+    sudo apt-get remove --purge -y openjdk-11-jre-headless
 }
 
 # Installs dependencies for EL8
