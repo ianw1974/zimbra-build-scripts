@@ -10,7 +10,7 @@
 #     Oracle Linux 8         #
 #     RHEL 8/9               #
 #     Rocky Linux 8/9        #
-#     Ubuntu 22.04           #
+#     Ubuntu 22.04/24.04     #
 ##############################
 
 #############
@@ -24,7 +24,7 @@ PROJECTDIR=zimbra
 #########################################
 
 # Supported distros variable
-DISTROS="AlmaLinux 8/9, Oracle Linux 8, RHEL 8/9, Rocky Linux 8/9, Ubuntu 22.04"
+DISTROS="AlmaLinux 8/9, Oracle Linux 8, RHEL 8/9, Rocky Linux 8/9, Ubuntu 22.04/24.04"
 
 #############
 # Functions #
